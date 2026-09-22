@@ -227,3 +227,13 @@ button[data-help]:hover::before,button[data-help]:focus-visible::before{content:
 .programme-help-card span{color:var(--cc-muted);font-size:13px;line-height:1.45}
 .programme-bar{cursor:default}
 @media(max-width:700px){button[data-help]:hover::before{display:none}.programme-help-card{display:block}.programme-task-row .task-actions{width:100%;justify-content:flex-start}.programme-task-row .task-actions button{flex:1;min-width:85px}}
+/* Phase 32.19 - keep each programme activity on one Gantt row with actions at the far right. */
+.gantt-head,.ganttrow{grid-template-columns:minmax(180px,1.15fr) minmax(170px,1fr) 180px minmax(250px,auto)}
+.gantt-actions{justify-content:flex-end;white-space:nowrap}
+.gantt-actions button{min-width:72px}
+.training-docs{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;align-items:center}
+.training-doc{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border:1px solid var(--cc-border);border-radius:8px;background:#f8fafc}
+.training-doc a{font-size:12px;color:var(--cc-blue);text-decoration:none}
+.training-doc a:hover{text-decoration:underline}
+.training-doc button{padding:4px 7px;font-size:11px}
+@media(max-width:900px){.gantt-head,.ganttrow{grid-template-columns:1fr}.gantt-head div:nth-child(2),.gantt-head div:nth-child(3),.gantt-head div:nth-child(4){display:none}.gantt-actions{justify-content:flex-start;margin-top:5px}.gantt-actions button{flex:1;min-width:80px}}

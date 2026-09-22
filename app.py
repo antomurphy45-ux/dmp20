@@ -162,6 +162,13 @@ CREATE TABLE IF NOT EXISTS staff_training_records(
  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS idx_staff_training_scope ON staff_training_records(company_id,staff_id,expiry_date,training_name);
+CREATE TABLE IF NOT EXISTS staff_training_documents(
+ id TEXT PRIMARY KEY, company_id TEXT NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
+ staff_id TEXT NOT NULL REFERENCES staff(id) ON DELETE CASCADE, training_id TEXT NOT NULL REFERENCES staff_training_records(id) ON DELETE CASCADE,
+ filename TEXT NOT NULL, stored_name TEXT NOT NULL UNIQUE, mime_type TEXT NOT NULL, size_bytes INTEGER NOT NULL,
+ uploaded_by TEXT REFERENCES users(id), created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_staff_training_documents_scope ON staff_training_documents(company_id,staff_id,training_id);
 CREATE TABLE IF NOT EXISTS project_staff_assignments(
  id TEXT PRIMARY KEY, company_id TEXT NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
  project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE, staff_id TEXT NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
@@ -1110,8 +1117,11 @@ class Handler(BaseHTTPRequestHandler):
         for k,v in (headers or {}).items(): self.send_header(k,v)
         self.end_headers(); self.wfile.write(json.dumps(obj).encode())
     def xlsx_response(self, data, filename):
+        # HTTP/1.1 headers are latin-1 in BaseHTTPRequestHandler; programme names may contain
+        # Unicode punctuation such as an em dash, so use a safe ASCII download filename.
+        safe_filename=filename.replace(chr(34),"").encode("ascii","ignore").decode("ascii")
         self.send_response(200); self.send_header("Content-Type","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-        self.send_header("Content-Disposition",f'attachment; filename="{filename.replace(chr(34),"")}"'); self.send_header("Content-Length",str(len(data))); self.send_header("Cache-Control","no-store"); self.end_headers(); self.wfile.write(data)
+        self.send_header("Content-Disposition",f'attachment; filename="{safe_filename}"'); self.send_header("Content-Length",str(len(data))); self.send_header("Cache-Control","no-store"); self.end_headers(); self.wfile.write(data)
 
     def multipart_file(self):
         from email.parser import BytesParser
@@ -1818,6 +1828,25 @@ class Handler(BaseHTTPRequestHandler):
                 if len(parts)==4 and parts[3]=="training" and self.command=="GET":
                     rows=c.execute("SELECT * FROM staff_training_records WHERE company_id=? AND staff_id=? ORDER BY COALESCE(expiry_date,'9999-12-31'),completed_date DESC,training_name",(u["company_id"],sid)).fetchall()
                     self.j(200,{"training":[dict(x) for x in rows]}); return
+                if len(parts)>=5 and parts[3]=="training":
+                    tid=parts[4]
+                    tr=c.execute("SELECT * FROM staff_training_records WHERE id=? AND staff_id=? AND company_id=?",(tid,sid,u["company_id"])).fetchone()
+                    if not tr: self.j(404,{"error":"Training record not found"}); return
+                    if len(parts)==6 and parts[5]=="documents" and self.command=="GET":
+                        rows=c.execute("SELECT id,staff_id,training_id,filename,mime_type,size_bytes,uploaded_by,created_at FROM staff_training_documents WHERE company_id=? AND staff_id=? AND training_id=? ORDER BY id DESC",(u["company_id"],sid,tid)).fetchall()
+                        self.j(200,{"documents":[dict(x) for x in rows]}); return
+                    if len(parts)==6 and parts[5]=="documents" and self.command=="POST":
+                        if not has_permission(c,u,"Projects","Edit"): self.j(403,{"error":"Project edit permission required"}); return
+                        b=self.body(); filename=str(b.get("filename","")).strip(); mime=str(b.get("mime_type") or "application/octet-stream"); raw=b.get("content_base64","")
+                        if not filename or not raw: self.j(400,{"error":"Filename and content are required"}); return
+                        if len(filename)>180 or "/" in filename or "\\" in filename or "\x00" in filename: self.j(400,{"error":"Invalid filename"}); return
+                        try: data=base64.b64decode(raw,validate=True)
+                        except Exception: self.j(400,{"error":"Invalid base64 content"}); return
+                        if len(data)>10*1024*1024: self.j(413,{"error":"Document is larger than 10 MB"}); return
+                        did=secrets.token_hex(8); stored=did+".bin"
+                        UPLOADS.mkdir(parents=True,exist_ok=True); (UPLOADS/stored).write_bytes(data)
+                        c.execute("INSERT INTO staff_training_documents(id,company_id,staff_id,training_id,filename,stored_name,mime_type,size_bytes,uploaded_by) VALUES(?,?,?,?,?,?,?,?,?)",(did,u["company_id"],sid,tid,filename,stored,mime,len(data),u["id"]))
+                        audit_row(c,u,"STAFF_TRAINING_DOCUMENT_UPLOAD",did); c.commit(); self.j(201,{"id":did}); return
                 if len(parts)==4 and parts[3]=="training" and self.command=="POST":
                     if not has_permission(c,u,"Projects","Edit"): self.j(403,{"error":"Project edit permission required"}); return
                     b=self.body(); name=str(b.get("training_name","")).strip(); provider=str(b.get("provider","")).strip(); completed=str(b.get("completed_date","")).strip(); expiry=str(b.get("expiry_date","")).strip() or None; cert=str(b.get("certificate_ref","")).strip(); status=str(b.get("status","Completed")).strip() or "Completed"; notes=str(b.get("notes","")).strip()
@@ -1842,6 +1871,18 @@ class Handler(BaseHTTPRequestHandler):
                     if expiry and expiry<completed: self.j(400,{"error":"Expiry date cannot be before completed date"}); return
                     if status not in ("Completed","Current","Expired","Pending"): self.j(400,{"error":"Invalid training status"}); return
                     c.execute("UPDATE staff_training_records SET training_name=?,provider=?,completed_date=?,expiry_date=?,certificate_ref=?,status=?,notes=?,updated_at=CURRENT_TIMESTAMP WHERE id=?",(name,provider,completed,expiry,cert,status,notes,tid)); audit_row(c,u,"STAFF_TRAINING_EDIT",tid); c.commit(); self.j(200,{"ok":True}); return
+            if path.startswith("/api/staff-training-documents/"):
+                did=path.rsplit("/",1)[1]; row=c.execute("SELECT * FROM staff_training_documents WHERE id=? AND company_id=?",(did,u["company_id"])).fetchone()
+                if not row: self.j(404,{"error":"Training document not found"}); return
+                if self.command=="GET":
+                    if not has_permission(c,u,"Projects","View"): self.j(403,{"error":"Project view permission required"}); return
+                    data=(UPLOADS/row["stored_name"]).read_bytes()
+                    self.send_response(200); self.send_header("Content-Type",row["mime_type"]); self.send_header("Content-Length",str(len(data))); self.send_header("Content-Disposition",f'attachment; filename="{row["filename"].replace(chr(34),"")}"'); self.end_headers(); self.wfile.write(data); return
+                if self.command=="DELETE":
+                    if not has_permission(c,u,"Projects","Edit"): self.j(403,{"error":"Project edit permission required"}); return
+                    try: (UPLOADS/row["stored_name"]).unlink()
+                    except FileNotFoundError: pass
+                    c.execute("DELETE FROM staff_training_documents WHERE id=? AND company_id=?",(did,u["company_id"])); audit_row(c,u,"STAFF_TRAINING_DOCUMENT_DELETE",did); c.commit(); self.j(200,{"ok":True}); return
             if path.startswith("/api/staff/"):
                 parts=path.strip('/').split('/'); sid=parts[2] if len(parts)>2 else ""; st=staff_record(c,u,sid)
                 if not st: self.j(404,{"error":"Staff member not found"}); return
