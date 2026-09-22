@@ -106,6 +106,15 @@ CREATE TABLE IF NOT EXISTS workflows(
  status TEXT NOT NULL DEFAULT 'Pending', decision_note TEXT NOT NULL DEFAULT '',
  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, decided_at TEXT);
 CREATE INDEX IF NOT EXISTS idx_workflows_scope ON workflows(company_id,project_id,status);
+CREATE TABLE IF NOT EXISTS external_approvals(
+ id TEXT PRIMARY KEY, company_id TEXT NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
+ project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+ title TEXT NOT NULL, approval_type TEXT NOT NULL DEFAULT 'Client Approval', description TEXT NOT NULL DEFAULT '',
+ external_party TEXT NOT NULL DEFAULT '', requested_by TEXT REFERENCES users(id),
+ requested_date TEXT NOT NULL, due_date TEXT, status TEXT NOT NULL DEFAULT 'Waiting',
+ response_date TEXT, response_note TEXT NOT NULL DEFAULT '', updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE INDEX IF NOT EXISTS idx_external_approvals_scope ON external_approvals(company_id,project_id,status,due_date);
 CREATE TABLE IF NOT EXISTS notifications(
  id TEXT PRIMARY KEY, company_id TEXT NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE, project_id TEXT REFERENCES projects(id) ON DELETE CASCADE,
@@ -1477,15 +1486,25 @@ class Handler(BaseHTTPRequestHandler):
                     held_up=sum(1 for x in health_rows if task_status(x["percent_complete"],x["task_status"])=="Held Up")
                     overdue=sum(1 for x in health_rows if x["finish_date"]<dashboard_day and task_status(x["percent_complete"],x["task_status"])!="Finished")
                     manpower_gap=today_att < planned_today
-                    health="red" if held_up or overdue else ("amber" if manpower_gap or late_tasks else "green")
+                    ext_waiting=c.execute("SELECT COUNT(*) FROM external_approvals WHERE company_id=? AND project_id=? AND status='Waiting'",(u["company_id"],pid)).fetchone()[0]
+                    ext_overdue=c.execute("SELECT COUNT(*) FROM external_approvals WHERE company_id=? AND project_id=? AND status='Waiting' AND due_date IS NOT NULL AND due_date<?",(u["company_id"],pid,dashboard_day)).fetchone()[0]
+                    health="red" if held_up or overdue or ext_overdue else ("amber" if manpower_gap or late_tasks or ext_waiting else "green")
+                    reasons=[]
+                    if overdue: reasons.append(f"{overdue} overdue programme activit{'y' if overdue==1 else 'ies'}")
+                    if held_up: reasons.append(f"{held_up} held-up activit{'y' if held_up==1 else 'ies'}")
+                    if ext_overdue: reasons.append(f"{ext_overdue} external approval{' is' if ext_overdue==1 else 's are'} overdue")
+                    if manpower_gap: reasons.append(f"manpower below plan by {max(0,planned_today-today_att):.1f}")
+                    if late_tasks: reasons.append(f"{len(late_tasks)} task{' is' if len(late_tasks)==1 else 's are'} late to start")
+                    if ext_waiting and not ext_overdue: reasons.append(f"{ext_waiting} external approval{' is' if ext_waiting==1 else 's are'} waiting")
+                    health_reason=("; ".join(reasons[:2]) if reasons else "No current programme, manpower or approval exception recorded")
                     summary.append({"project_id":pid,"project_name":pr["name"],"records":records,"modules":modules,
-                                    "kpis":{"rfis":open_rfIs,"risks":open_risks,"actions":open_actions,"snags":open_snags,"pending_approvals":pending_approvals,"documents":docs,"tasks":task_count},
+                                    "kpis":{"rfis":open_rfIs,"risks":open_risks,"actions":open_actions,"snags":open_snags,"pending_approvals":pending_approvals,"external_approvals":ext_waiting,"documents":docs,"tasks":task_count},
                                     "manpower":{"planned_men":planned_men,"actual_men":actual_men,"variance_men":round(actual_men-planned_men,1),"man_hours":man_hours},
-                                    "programme":{"finish_variance_days":programme_variance,"task_progress":task_progress_value,"task_count":task_count,"held_up":held_up,"overdue":overdue},"health":health,
+                                    "programme":{"finish_variance_days":programme_variance,"task_progress":task_progress_value,"task_count":task_count,"held_up":held_up,"overdue":overdue},"health":health,"health_reason":health_reason,
                                     "today":{"date":dashboard_day,"tasks_starting":today_tasks,"tasks_late":late_tasks,"planned_men":planned_today,"actual_men":today_att,"daily_saved":daily_saved},
                                     "plans":plans,"active_plan":active_plan})
                 total_records=sum(x["records"] for x in summary)
-                total_kpis={k:sum(x["kpis"][k] for x in summary) for k in ("rfis","risks","actions","snags","pending_approvals","documents","tasks")}
+                total_kpis={k:sum(x["kpis"][k] for x in summary) for k in ("rfis","risks","actions","snags","pending_approvals","external_approvals","documents","tasks")}
                 recent=c.execute("SELECT a.created_at,a.action,a.target,u.name user_name FROM audit a LEFT JOIN users u ON u.id=a.user_id WHERE a.company_id=? ORDER BY a.id DESC LIMIT 10",(u["company_id"],)).fetchall()
                 self.j(200,{"date":dashboard_day,"projects":[dict(x) for x in projects],"project_summary":summary,"total_records":total_records,"total_kpis":total_kpis,"recent_audit":[dict(x) for x in recent]});return
             if self.command=="GET" and path=="/api/project-overview":
@@ -2075,6 +2094,29 @@ class Handler(BaseHTTPRequestHandler):
                 nid=path.rsplit("/",1)[1]
                 if not c.execute("SELECT 1 FROM notifications WHERE id=? AND company_id=? AND user_id=?",(nid,u["company_id"],u["id"])).fetchone(): self.j(404,{"error":"Notification not found"}); return
                 c.execute("UPDATE notifications SET read_at=CURRENT_TIMESTAMP WHERE id=? AND company_id=? AND user_id=?",(nid,u["company_id"],u["id"])); c.commit(); self.j(200,{"ok":True}); return
+            if path=="/api/external-approvals" and self.command=="GET":
+                from urllib.parse import parse_qs
+                qs=parse_qs(urlparse(self.path).query); project_id=(qs.get("project_id") or [None])[0]
+                if not project_id or not can_access_project(c,u,project_id): self.j(403,{"error":"Project access required"}); return
+                rows=c.execute("SELECT e.*,u.name requester_name FROM external_approvals e LEFT JOIN users u ON u.id=e.requested_by WHERE e.company_id=? AND e.project_id=? ORDER BY CASE e.status WHEN 'Waiting' THEN 0 ELSE 1 END,e.due_date,e.id DESC",(u["company_id"],project_id)).fetchall()
+                self.j(200,{"approvals":[dict(x) for x in rows]}); return
+            if path=="/api/external-approvals" and self.command=="POST":
+                if not has_permission(c,u,"Projects","Create"): self.j(403,{"error":"Project create permission required"}); return
+                b=self.body(); project_id=str(b.get("project_id","")).strip(); title=str(b.get("title","")).strip(); approval_type=str(b.get("approval_type") or "Client Approval").strip(); description=str(b.get("description") or "").strip(); external_party=str(b.get("external_party") or "").strip(); requested_date=str(b.get("requested_date") or date.today().isoformat()).strip(); due_date=str(b.get("due_date") or "").strip() or None
+                if not project_id or not can_access_project(c,u,project_id): self.j(403,{"error":"Project access required"}); return
+                if not title: self.j(400,{"error":"Approval title is required"}); return
+                aid="EA-"+secrets.token_hex(6); c.execute("INSERT INTO external_approvals(id,company_id,project_id,title,approval_type,description,external_party,requested_by,requested_date,due_date) VALUES(?,?,?,?,?,?,?,?,?,?)",(aid,u["company_id"],project_id,title,approval_type,description,external_party,u["id"],requested_date,due_date)); audit_row(c,u,"EXTERNAL_APPROVAL_CREATE",aid); c.commit(); self.j(201,{"id":aid}); return
+            if path.startswith("/api/external-approvals/"):
+                aid=path.rsplit("/",1)[1]; row=c.execute("SELECT * FROM external_approvals WHERE id=? AND company_id=?",(aid,u["company_id"])).fetchone()
+                if not row or not can_access_project(c,u,row["project_id"]): self.j(404,{"error":"External approval not found"}); return
+                if self.command=="PUT":
+                    if not has_permission(c,u,"Projects","Edit"): self.j(403,{"error":"Project edit permission required"}); return
+                    b=self.body(); status=str(b.get("status") or row["status"]).strip(); response_date=str(b.get("response_date") or row["response_date"] or "").strip() or None; response_note=str(b.get("response_note") or row["response_note"] or "").strip()
+                    if status not in ("Waiting","Approved","Rejected","Cancelled"): self.j(400,{"error":"Invalid approval status"}); return
+                    c.execute("UPDATE external_approvals SET status=?,response_date=?,response_note=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND company_id=?",(status,response_date,response_note,aid,u["company_id"])); audit_row(c,u,"EXTERNAL_APPROVAL_"+status.upper(),aid); c.commit(); self.j(200,{"ok":True,"status":status}); return
+                if self.command=="DELETE":
+                    if not has_permission(c,u,"Projects","Delete"): self.j(403,{"error":"Project delete permission required"}); return
+                    c.execute("DELETE FROM external_approvals WHERE id=? AND company_id=?",(aid,u["company_id"])); audit_row(c,u,"EXTERNAL_APPROVAL_DELETE",aid); c.commit(); self.j(200,{"ok":True}); return
             if path=="/api/workflows" and self.command=="GET":
                 from urllib.parse import parse_qs
                 qs=parse_qs(urlparse(self.path).query); project_id=(qs.get("project_id") or [None])[0]
@@ -2722,7 +2764,9 @@ class Handler(BaseHTTPRequestHandler):
                 if not project_id or not can_access_project(c,u,project_id): self.j(403,{"error":"Project access required"}); return
                 if not filename or not raw: self.j(400,{"error":"Filename and content are required"}); return
                 if len(filename)>180 or "/" in filename or "\\" in filename or "\x00" in filename: self.j(400,{"error":"Invalid filename"}); return
-                if record_id and not c.execute("SELECT 1 FROM module_records WHERE id=? AND company_id=? AND project_id=?",(record_id,u["company_id"],project_id)).fetchone(): self.j(400,{"error":"Invalid record for project"}); return
+                if record_id:
+                    valid_record=c.execute("SELECT 1 FROM module_records WHERE id=? AND company_id=? AND project_id=?",(record_id,u["company_id"],project_id)).fetchone() or c.execute("SELECT 1 FROM external_approvals WHERE id=? AND company_id=? AND project_id=?",(record_id,u["company_id"],project_id)).fetchone()
+                    if not valid_record: self.j(400,{"error":"Invalid record for project"}); return
                 try: data=base64.b64decode(raw,validate=True)
                 except Exception: self.j(400,{"error":"Invalid base64 content"}); return
                 if len(data)>10*1024*1024: self.j(413,{"error":"Development upload limit is 10 MB"}); return

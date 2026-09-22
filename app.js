@@ -38,7 +38,7 @@ function dashboardProjectCards(projects){
  return projects.map(p=>{
    const a=p.active_plan;
    return `<div class="project-card">
-     <div class="project-card-head"><div><span class="eyebrow">PROJECT</span><h3>${esc(p.project_name)}</h3></div><span class="pill ${esc(p.health||'green')}">${esc((p.health||'green').toUpperCase())}</span><button class="linkbtn" onclick="quickOpenProject('${esc(p.project_id)}')">Open project →</button></div>
+     <div class="project-card-head"><div><span class="eyebrow">PROJECT</span><h3>${esc(p.project_name)}</h3></div><button class="pill rag-button ${esc(p.health||'green')}" title="Show why this project has this status" onclick="showProjectHealth('${esc(p.project_id)}')">${esc((p.health||'green').toUpperCase())} ⓘ</button><button class="linkbtn" onclick="quickOpenProject('${esc(p.project_id)}')">Open project →</button></div>
      <div class="project-meta">${p.records} records ${a?`• Programme ${esc(a.name)} • ${a.progress}% • finish ${esc(a.finish||'—')}`:'• No programme'}</div>
      <div class="project-kpis">
        <button class="kpi-chip blue" onclick="openDashboardModule('RFIs','${esc(p.project_id)}')"><b>${dashValue(p,'rfis')}</b><span>RFIs</span></button>
@@ -51,6 +51,40 @@ function dashboardProjectCards(projects){
    </div>`;
  }).join('')||'<div class="empty-state">No accessible projects.</div>';
 }
+function showProjectHealth(projectId){
+ const p=(dashboardData?.project_summary||[]).find(x=>x.project_id===projectId); if(!p)return;
+ const colour=p.health==='red'?'red':p.health==='amber'?'amber':'green';
+ const title=p.health==='red'?'RED — action required':p.health==='amber'?'AMBER — attention required':'GREEN — currently controlled';
+ const reason=p.health_reason||'No current exception recorded.';
+ const bullets=[];
+ if(p.programme?.overdue)bullets.push(`${p.programme.overdue} overdue programme activit${p.programme.overdue===1?'y':'ies'}`);
+ if(p.programme?.held_up)bullets.push(`${p.programme.held_up} held-up activit${p.programme.held_up===1?'y':'ies'}`);
+ if((p.today?.planned_men||0)>(p.today?.actual_men||0))bullets.push(`Manpower ${Number(p.today.actual_men).toFixed(1)} actual vs ${Number(p.today.planned_men).toFixed(1)} planned today`);
+ if((p.kpis?.external_approvals||0))bullets.push(`${p.kpis.external_approvals} external approval${p.kpis.external_approvals===1?'':'s'} waiting`);
+ modal(`${esc(p.project_name)} — ${title}`,`<div class="rag-summary ${colour}"><div class="rag-big">${p.health.toUpperCase()}</div><div><b>${esc(reason)}</b><p class="muted">Based on live programme, manpower and external-approval records.</p></div></div>${bullets.length?`<div class="card"><b>Current indicators</b>${bullets.map(x=>`<div class="mini-row">• ${esc(x)}</div>`).join('')}</div>`:''}<div class="modal-actions"><button onclick="closeModal();state.projectId='${esc(projectId)}';page('daily')">Open today's control</button><button class="secondary" onclick="closeModal();openExternalApprovals('${esc(projectId)}')">External approvals</button></div>`);
+}
+
+function pmDailyBrief(projects){
+ const late=projects.flatMap(p=>(p.today?.tasks_late||[]).map(t=>({...t,project_name:p.project_name})));
+ const starting=projects.flatMap(p=>(p.today?.tasks_starting||[]).map(t=>({...t,project_name:p.project_name})));
+ const waiting=projects.reduce((n,p)=>n+Number(p.kpis?.external_approvals||0),0);
+ const mp=projects.filter(p=>Number(p.today?.actual_men||0)<Number(p.today?.planned_men||0));
+ const chase=[...late.slice(0,2).map(x=>`Chase: ${x.name} — ${x.project_name}`),...projects.filter(p=>Number(p.kpis?.external_approvals||0)>0).slice(0,2).map(p=>`Chase external approval — ${p.project_name}`),...mp.slice(0,2).map(p=>`Check manpower — ${p.project_name}`)];
+ return `<section class="pm-brief"><div class="pm-brief-head"><div><span class="eyebrow">PROJECT MANAGER DAILY BRIEF</span><h2>What needs your attention today</h2><p>Simple actions first. Detailed records stay behind the buttons.</p></div><button onclick="page('daily')">✓ Start today's control</button></div><div class="pm-brief-grid"><button onclick="document.querySelector('.late-card')?.scrollIntoView({behavior:'smooth'})"><b>${late.length}</b><span>Needs chasing</span><small>Late starts / overdue work</small></button><button onclick="openExternalApprovals('all')"><b>${waiting}</b><span>External approvals</span><small>Waiting for client / external response</small></button><button onclick="page('daily')"><b>${mp.length}</b><span>Manpower checks</span><small>Below today's plan</small></button><button onclick="document.querySelector('.today-card')?.scrollIntoView({behavior:'smooth'})"><b>${starting.length}</b><span>Starting today</span><small>Planned programme activity</small></button></div>${chase.length?`<div class="pm-chase"><b>Today's chase list</b>${chase.slice(0,5).map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:`<div class="pm-clear">✓ No immediate chase items identified from the current records.</div>`}</section>`;
+}
+
+function externalApprovalForm(projectId, existing=null){
+ const x=existing||{};
+ modal(existing?'Edit external approval':'Add external approval',`<label>Project</label><select id=ea_project>${state.projects.map(p=>`<option value="${esc(p.id)}" ${p.id===(projectId==='all'?state.projectId:projectId)?'selected':''}>${esc(p.name)}</option>`).join('')}</select><label>Approval / item</label><input id=ea_title value="${esc(x.title||'')}" placeholder="e.g. Client approval — RFI-023"><label>Type</label><select id=ea_type>${['Client Approval','Design Approval','Material Approval','Method / RAMS Approval','Programme Approval','Other'].map(v=>`<option ${v===(x.approval_type||'Client Approval')?'selected':''}>${v}</option>`).join('')}</select><label>External party</label><input id=ea_party value="${esc(x.external_party||'')}" placeholder="Client / consultant / external party"><label>Description</label><textarea id=ea_desc rows=3>${esc(x.description||'')}</textarea><label>Requested date</label><input id=ea_req type=date value="${esc(x.requested_date||new Date().toISOString().slice(0,10))}"><label>Required by</label><input id=ea_due type=date value="${esc(x.due_date||'')}">${existing?`<label>Status</label><select id=ea_status>${['Waiting','Approved','Rejected','Cancelled'].map(v=>`<option ${v===x.status?'selected':''}>${v}</option>`).join('')}</select><label>Response date</label><input id=ea_response_date type=date value="${esc(x.response_date||'')}"><label>Response / decision note</label><textarea id=ea_response_note rows=3>${esc(x.response_note||'')}</textarea>`:''}<button onclick="${existing?`saveExternalApproval('${esc(x.id)}')`:'saveExternalApproval()'}">${existing?'Save status':'Add to approval watch list'}</button>`);
+}
+async function openExternalApprovals(projectId){
+ const ids=projectId==='all'?state.projects.map(p=>p.id):[projectId]; let rows=[];
+ for(const pid of ids){try{const d=await api('/api/external-approvals?project_id='+encodeURIComponent(pid));(d.approvals||[]).forEach(x=>rows.push({...x,project_name:(state.projects.find(p=>p.id===pid)||{}).name||pid}))}catch(e){}}
+ const body=`<div class="bar"><div><b>External approval watch list</b><div class="muted">Waiting for an outside/client response. Your team changes the status when the response arrives.</div></div><button onclick="closeModal();externalApprovalForm('${esc(projectId)}')">+ Add approval</button></div>${rows.length?rows.map(x=>`<div class="row external-approval-row"><div><b>${esc(x.title)}</b><div class="muted">${esc(x.project_name)} • ${esc(x.external_party||'External party')} • due ${esc(x.due_date||'not set')}</div><div>${esc(x.status)}${x.response_note?' • '+esc(x.response_note):''}</div></div><div class="row-actions"><button class="secondary" onclick="externalApprovalForm('${esc(x.project_id)}',${JSON.stringify(x).replace(/</g,'\u003c')})">Edit</button>${x.status==='Waiting'?`<button onclick="externalApprovalForm('${esc(x.project_id)}',${JSON.stringify(x).replace(/</g,'\u003c')})">Update</button>`:''}</div></div>`).join(''):'<p class="muted">No external approvals recorded.</p>'}`;
+ modal('External Approvals',body);
+}
+async function saveExternalApproval(id=null){try{const payload={project_id:ea_project.value,title:ea_title.value,approval_type:ea_type.value,external_party:ea_party.value,description:ea_desc.value,requested_date:ea_req.value,due_date:ea_due.value};if(id){payload.status=ea_status.value;payload.response_date=ea_response_date.value;payload.response_note=ea_response_note.value;await api('/api/external-approvals/'+encodeURIComponent(id),{method:'PUT',body:JSON.stringify(payload)})}else{await api('/api/external-approvals',{method:'POST',body:JSON.stringify(payload)})}closeModal();await home();}catch(e){alert(e.message)}}
+
 function formatDashboardDate(iso){try{return new Intl.DateTimeFormat(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date(iso+'T12:00:00'))}catch{return iso}}
 function dashboardAttentionCards(projects){
  const late=projects.flatMap(p=>(p.today?.tasks_late||[]).map(t=>({...t,project_id:p.project_id,project_name:p.project_name}))); 
@@ -86,6 +120,7 @@ function renderDashboard(){
  const dailyRows=unsaved.slice(0,6).map(p=>`<button class="attention-item neutral" onclick="page('daily');state.projectId='${esc(p.project_id)}';dailySiteControl()"><span><b>${esc(p.project_name)}</b><small>Daily Site Control has not been saved for ${esc(d.date)}</small></span><strong>OPEN</strong></button>`).join('');
  const body=`
  <div class="dash-hero"><div><span class="eyebrow">PROJECT CONTROL CENTRE</span><h2>${dateLabel}</h2><p>Good ${new Date().getHours()<12?'morning':new Date().getHours()<18?'afternoon':'evening'}, ${esc(state.me.name.split(' ')[0])}. Here's what needs attention today.</p></div><div class="dash-hero-actions"><select id="dashProject" onchange="renderDashboard()"><option value="all">All projects</option>${projectOptions}</select><button onclick="page('daily')">✓ Open Daily Site Control</button></div></div>
+ ${pmDailyBrief(projects)}
  <div class="dash-today-strip"><div><span>Planned men today</span><b>${totalPlanned.toFixed(1)}</b><small>from active programme tasks</small></div><div><span>Actual on site</span><b>${totalActual.toFixed(1)}</b><small>recorded attendance</small></div><div class="${totalActual<totalPlanned?'attention':''}"><span>Manpower variance</span><b>${(totalActual-totalPlanned).toFixed(1)}</b><small>actual − planned</small></div><div><span>Tasks starting</span><b>${totalStarting}</b><small>today</small></div><div class="${totalLate?'attention':''}"><span>Late starts</span><b>${totalLate}</b><small>should already have started</small></div></div>
  <div class="dash-priority-grid">
   <section class="priority-card late-card"><div class="priority-head"><div><span class="eyebrow">🚨 IMMEDIATE</span><h2>Tasks that should have started</h2></div><span class="count danger-count">${totalLate}</span></div>${lateRows||'<div class="priority-empty good">✓ No late-start tasks</div>'}</section>
@@ -99,13 +134,7 @@ function renderDashboard(){
 
 async function home(){try{dashboardData=await api('/api/dashboard');renderDashboard()}catch(e){alert(e.message)}}
 async function openDashboardModule(module,projectId='all'){
- if(module==='Approvals'){
-   const projects=projectId==='all'?(dashboardData?.project_summary||[]):(dashboardData?.project_summary||[]).filter(p=>p.project_id===projectId);
-   let rows=[];
-   for(const p of projects){try{const d=await api('/api/workflows?project_id='+encodeURIComponent(p.project_id));(d.workflows||[]).filter(w=>w.status==='Pending').forEach(w=>rows.push({...w,project_name:p.project_name}))}catch{}}
-   if(!rows.length){alert('No pending approvals found.');return}
-   modal('Pending approvals',`<p class="muted">Click an approval to open its project control area.</p>${rows.map(w=>`<div class="row"><div><b>${esc(w.module)}</b><div>${esc(w.project_name)}</div><div class="muted">${esc(w.status)} • ${esc(w.created_at||'')}</div></div><button class="secondary" onclick="closeModal();openDashboardModule('${esc(w.module)}','${esc(w.project_id)}')">Open</button></div>`).join('')}`);return
- }
+ if(module==='Approvals'){openExternalApprovals(projectId);return}
  const projects=projectId==='all'?(dashboardData?.project_summary||[]):(dashboardData?.project_summary||[]).filter(p=>p.project_id===projectId);
  let records=[];
  for(const p of projects){try{const d=await api('/api/module/'+encodeURIComponent(module)+'?project_id='+encodeURIComponent(p.project_id));(d.records||[]).forEach(r=>records.push({...r,project_name:p.project_name,project_id:p.project_id}))}catch{}}
