@@ -1,5 +1,9 @@
-# Construction Control — Phase 32.22
+Construction Control — Phase 32.23
 
-Programme calendar UX update: Calendar now displays as a monthly Sunday-Saturday board with a week-number column and compact clickable activity tabs inside each date, based on the supplied reference image. Date cells open a detail view and retain calendar exception controls. Previous/next month navigation is included.
+Role and permission structure updated per user direction.
+UI generic hover tooltip removed.
+Users/staff remain add/edit without delete.
+Programme/calendar/PM cockpit/training features from Phase 32.22 retained.
 
-Built from the Phase 32.21 tested codebase. Root and static frontend copies are synchronised. Visible circled-i button icons remain removed.
+Validation: 15 targeted tests passed; Python/JavaScript syntax checks passed.
+Full historical suite not claimed because older tests contain superseded role/fixture expectations.

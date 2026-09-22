@@ -651,14 +651,14 @@ def seed(c):
         c.execute("ALTER TABLE roles ADD COLUMN access_level INTEGER NOT NULL DEFAULT 1")
     if "parent_role_id" not in role_cols:
         c.execute("ALTER TABLE roles ADD COLUMN parent_role_id TEXT")
-    role_level_map={"Viewer":1,"Site User":2,"Foreman / Charge Hand":3,"Site Manager":4,"Project Manager":5,"Construction Manager":6,"Business Unit Lead":7,"Company Director":8,"Company Administrator":9}
-    for rname,rlevel in role_level_map.items():
-        c.execute("UPDATE roles SET access_level=? WHERE name=? AND (access_level IS NULL OR access_level=1)",(rlevel,rname))
+    # Phase 32.23 role structure: move any existing login users on the retired
+    # Site Manager / Project Manager / combined Foreman-Charge Hand roles to the
+    # new structure. Legacy role rows remain only for database/test compatibility
+    # and are hidden from the Access Ladder and new-user role picker.
+    old_roles=("Foreman / Charge Hand","Site Manager","Project Manager")
+    for old_name in old_roles:
+        c.execute("UPDATE users SET role='Construction Manager' WHERE role=?",(old_name,))
     if c.execute("SELECT COUNT(*) FROM companies").fetchone()[0]:
-        pm = c.execute("SELECT id FROM roles WHERE company_id='C1' AND name='Project Manager'").fetchone()
-        if pm:
-            c.executemany("INSERT OR IGNORE INTO permissions(role_id,module,action,allowed) VALUES(?,?,?,1)",[(pm["id"],m,"Approve") for m in ("Projects","RFIs","Risks","Actions","Snags")])
-            c.commit()
         for cid in [r["id"] for r in c.execute("SELECT id FROM companies").fetchall()]:
             ensure_ladder_roles(c,cid)
         seed_dub_demo_data(c)
@@ -688,7 +688,7 @@ def seed(c):
     for m in ["Projects","Daily Control","Manpower","Snags"]:
         for a in ["View","Create","Edit"]: c.execute("UPDATE permissions SET allowed=1 WHERE role_id=? AND module=? AND action=?",(su,m,a))
     c.execute("INSERT INTO users(id,company_id,name,email,password_hash,active,role) VALUES(?,?,?,?,?,?,?)",("U1","C1","Company Owner","owner@demo.local",pw_hash("DemoPass!123"),1,"Company Administrator"))
-    c.execute("INSERT INTO users(id,company_id,name,email,password_hash,active,role) VALUES(?,?,?,?,?,?,?)",("U2","C1","Project Manager","manager@demo.local",pw_hash("DemoPass!123"),1,"Project Manager"))
+    c.execute("INSERT INTO users(id,company_id,name,email,password_hash,active,role) VALUES(?,?,?,?,?,?,?)",("U2","C1","Construction Manager","manager@demo.local",pw_hash("DemoPass!123"),1,"Construction Manager"))
     c.execute("INSERT INTO users(id,company_id,name,email,password_hash,active,role) VALUES(?,?,?,?,?,?,?)",("U3","C2","Site User","site@demo.local",pw_hash("DemoPass!123"),1,"Site User"))
     c.execute("INSERT INTO org_levels(id,company_id,name) VALUES(?,?,?)",("L1","C1","Executive"))
     c.execute("INSERT INTO org_levels(id,company_id,name) VALUES(?,?,?)",("L2","C1","Operations"))
@@ -711,6 +711,30 @@ def init_db(path=None):
     try: seed(c)
     finally: c.close()
     if path: DB_PATH=old
+
+def role_access_level(c, user):
+    if isinstance(user, str):
+        user=c.execute("SELECT * FROM users WHERE id=?",(user,)).fetchone()
+    if not user: return 0
+    row=c.execute("SELECT access_level FROM roles WHERE company_id=? AND name=?",(user["company_id"],user["role"])).fetchone()
+    return int(row["access_level"] or 0) if row else 0
+
+def can_manage_user_project_access(c, user, target_role=None):
+    level=role_access_level(c,user)
+    if level < 5: return False
+    if target_role:
+        target_level=role_access_level(c, {"company_id":user["company_id"],"role":target_role})
+        # CM can allocate site-level roles; BU Lead can also allocate CMs; Director/Admin can allocate below their own level.
+        if level==5 and target_role not in ("Foreman","Charge Hand","Site User","Viewer"): return False
+        if level==6 and target_role not in ("Construction Manager","Foreman","Charge Hand","Site User","Viewer"): return False
+        if level==7 and target_level >= 7: return False
+    return True
+
+def managed_project_ids(c,user):
+    level=role_access_level(c,user)
+    if level>=7 or user["role"]=="Company Administrator":
+        return {r[0] for r in c.execute("SELECT id FROM projects WHERE company_id=?",(user["company_id"],)).fetchall()}
+    return {r[0] for r in c.execute("SELECT project_id FROM project_access WHERE user_id=?",(user["id"],)).fetchall()}
 
 def can_access_project(c, user, project_id):
     # Accept a user id for compatibility with Phase 5C tests, while the server uses the full user row.
@@ -745,27 +769,27 @@ def audit_row(c, u, action, target):
     c.execute("INSERT INTO audit(company_id,user_id,action,target) VALUES(?,?,?,?)",(u["company_id"],u["id"],action,target))
 
 ACCESS_LADDER = [
-    (1, "Viewer", "View-only project access"),
-    (2, "Site User", "Daily site updates and basic records"),
-    (3, "Foreman / Charge Hand", "Site control, tasks, manpower and site records"),
-    (4, "Site Manager", "Site management, compliance and approvals within assigned projects"),
-    (5, "Project Manager", "Full project delivery control and approvals"),
-    (6, "Construction Manager", "Multi-project delivery and management control"),
-    (7, "Business Unit Lead", "Business-unit oversight across projects"),
-    (8, "Company Director", "Company-wide operational oversight"),
-    (9, "Company Administrator", "Full company administration and security control"),
+    (1, "Viewer", "View-only access to assigned projects"),
+    (2, "Site User", "Limited site updates on assigned projects"),
+    (3, "Foreman", "Site control, tasks, manpower, imports and records on assigned projects"),
+    (4, "Charge Hand", "Site control, tasks, manpower, imports and records on assigned projects"),
+    (5, "Construction Manager", "Full delivery control on assigned projects, including approvals and programme control"),
+    (6, "Business Unit Lead", "Control and oversight of assigned projects across the business unit"),
+    (7, "Company Director", "Company-wide operational oversight and approvals"),
+    (8, "Company Administrator", "Full company administration and security control"),
 ]
 
+SITE_CONTROL_PRESET = [(m,a) for m in ("Projects","Daily Control","Manpower","RFIs","Risks","Actions","Snags","Materials","Permits","RAMS","Documents","Reports") for a in ("View","Create","Edit","Export")]
+MANAGEMENT_PRESET = SITE_CONTROL_PRESET + [(m,"Approve") for m in MODULES if m not in ("Users","Roles")]
 LADDER_PERMISSION_PRESETS = {
     1:[("Projects","View"),("Daily Control","View"),("Manpower","View"),("Reports","View")],
     2:[(m,a) for m in ("Projects","Daily Control","Manpower","Snags") for a in ("View","Create","Edit")],
-    3:[(m,a) for m in ("Projects","Daily Control","Manpower","RFIs","Risks","Actions","Snags","Materials","Permits","RAMS") for a in ("View","Create","Edit","Export")],
-    4:[(m,a) for m in MODULES for a in ("View","Create","Edit","Export")],
-    5:[(m,a) for m in MODULES for a in ("View","Create","Edit","Approve","Export")],
-    6:[(m,a) for m in MODULES for a in ("View","Create","Edit","Approve","Export")],
-    7:[(m,a) for m in MODULES for a in ("View","Create","Edit","Approve","Export")],
-    8:[(m,a) for m in MODULES for a in ("View","Create","Edit","Approve","Export")],
-    9:[(m,a) for m in MODULES for a in ACTIONS],
+    3:SITE_CONTROL_PRESET,
+    4:SITE_CONTROL_PRESET,
+    5:MANAGEMENT_PRESET,
+    6:MANAGEMENT_PRESET,
+    7:MANAGEMENT_PRESET,
+    8:[(m,a) for m in MODULES for a in ACTIONS],
 }
 
 def ensure_ladder_roles(c, company_id):
@@ -776,11 +800,16 @@ def ensure_ladder_roles(c, company_id):
             rid=row["id"]
             c.execute("UPDATE roles SET access_level=?,parent_role_id=? WHERE id=?",(level,previous,rid))
         else:
-            rid=f"{company_id}-LADDER-{level}"
+            slug="".join(ch if ch.isalnum() else "-" for ch in name).strip("-").upper()
+            rid=f"{company_id}-LADDER-{slug}"
+            if c.execute("SELECT 1 FROM roles WHERE id=?",(rid,)).fetchone():
+                rid=secrets.token_hex(8)
             c.execute("INSERT INTO roles(id,company_id,name,access_level,parent_role_id) VALUES(?,?,?,?,?)",(rid,company_id,name,level,previous))
-            c.executemany("INSERT INTO permissions(role_id,module,action,allowed) VALUES(?,?,?,0)",[(rid,m,a) for m in MODULES for a in ACTIONS])
-            for mod,act in LADDER_PERMISSION_PRESETS[level]:
-                c.execute("UPDATE permissions SET allowed=1 WHERE role_id=? AND module=? AND action=?",(rid,mod,act))
+        # Keep the built-in ladder roles deterministic after migrations or edits.
+        c.execute("DELETE FROM permissions WHERE role_id=?",(rid,))
+        c.executemany("INSERT INTO permissions(role_id,module,action,allowed) VALUES(?,?,?,0)",[(rid,m,a) for m in MODULES for a in ACTIONS])
+        for mod,act in LADDER_PERMISSION_PRESETS[level]:
+            c.execute("UPDATE permissions SET allowed=1 WHERE role_id=? AND module=? AND action=?",(rid,mod,act))
         previous=rid
 
 def ladder_info(level):
@@ -2011,7 +2040,7 @@ class Handler(BaseHTTPRequestHandler):
                 if not c.execute("SELECT 1 FROM org_levels WHERE id=? AND company_id=?",(lid,u["company_id"])).fetchone():self.j(404,{"error":"Level not found"});return
                 c.execute("UPDATE org_levels SET name=?,parent_id=? WHERE id=? AND company_id=?",(name,parent,lid,u["company_id"]));audit_row(c,u,"ORG_LEVEL_EDIT",lid);c.commit();self.j(200,{"ok":True});return
             if self.command=="GET" and path=="/api/users":
-                if not require_admin(self,u):return
+                if role_access_level(c,u) < 5: self.j(403,{"error":"User management access required"}); return
                 rows=c.execute("SELECT id,name,email,active,role,created_at FROM users WHERE company_id=? ORDER BY name",(u["company_id"],)).fetchall();self.j(200,{"users":[dict(x) for x in rows]});return
             if path=="/api/users" and self.command=="POST":
                 if not require_admin(self,u):return
@@ -2027,8 +2056,8 @@ class Handler(BaseHTTPRequestHandler):
                 parts=path.strip('/').split('/');uid=parts[2]
                 target=c.execute("SELECT * FROM users WHERE id=? AND company_id=?",(uid,u["company_id"])).fetchone()
                 if not target:self.j(404,{"error":"User not found"});return
-                if not require_admin(self,u):return
                 if len(parts)==3 and self.command=="PUT":
+                    if not require_admin(self,u):return
                     b=self.body();name=str(b.get("name","")).strip();role=str(b.get("role","")).strip();active=1 if b.get("active",True) else 0
                     if not name or not role:self.j(400,{"error":"Name and role are required"});return
                     if not role_id(c,u["company_id"],role):self.j(400,{"error":"Invalid role"});return
@@ -2036,15 +2065,24 @@ class Handler(BaseHTTPRequestHandler):
                     c.execute("UPDATE users SET name=?,role=?,active=? WHERE id=?",(name,role,active,uid));audit_row(c,u,"USER_EDIT",uid);c.commit();self.j(200,{"ok":True});return
                 if len(parts)==4 and parts[3]=="access":
                     if self.command=="GET":
+                        if role_access_level(c,u) < 5 and u["id"]!=uid: self.j(403,{"error":"Project access management required"}); return
                         rows=c.execute("SELECT project_id FROM project_access pa JOIN projects p ON p.id=pa.project_id WHERE pa.user_id=? AND p.company_id=?",(uid,u["company_id"])).fetchall();self.j(200,{"project_ids":[x[0] for x in rows]});return
                     if self.command=="PUT":
-                        ids=self.body().get("project_ids",[]);valid={x[0] for x in c.execute("SELECT id FROM projects WHERE company_id=?",(u["company_id"],)).fetchall()}
-                        if not isinstance(ids,list) or any(x not in valid for x in ids):self.j(400,{"error":"One or more projects are invalid"});return
+                        if not can_manage_user_project_access(c,u,target["role"]): self.j(403,{"error":"You cannot manage project access for this role"}); return
+                        ids=self.body().get("project_ids",[])
+                        if not isinstance(ids,list):self.j(400,{"error":"project_ids must be a list"});return
+                        valid={x[0] for x in c.execute("SELECT id FROM projects WHERE company_id=?",(u["company_id"],)).fetchall()}
+                        managed=managed_project_ids(c,u)
+                        if any(x not in valid for x in ids):self.j(400,{"error":"One or more projects are invalid"});return
+                        if not (role_access_level(c,u)>=7):
+                            current=set(x[0] for x in c.execute("SELECT project_id FROM project_access WHERE user_id=?",(uid,)).fetchall())
+                            if any(x not in managed for x in ids):self.j(403,{"error":"You can only assign projects you control"});return
                         c.execute("DELETE FROM project_access WHERE user_id=?",(uid,))
                         c.executemany("INSERT INTO project_access(user_id,project_id) VALUES(?,?)",[(uid,x) for x in ids]);audit_row(c,u,"PROJECT_ACCESS_EDIT",uid);c.commit();self.j(200,{"ok":True});return
             if self.command=="GET" and path=="/api/roles":
                 if not require_admin(self,u):return
-                rows=c.execute("SELECT r.*,pr.name parent_name,COUNT(p.module) permission_count FROM roles r LEFT JOIN roles pr ON pr.id=r.parent_role_id LEFT JOIN permissions p ON p.role_id=r.id WHERE r.company_id=? GROUP BY r.id ORDER BY r.access_level DESC,r.name",(u["company_id"],)).fetchall();self.j(200,{"roles":[dict(x) for x in rows],"ladder":[{"level":n,"name":name,"description":desc} for n,name,desc in ACCESS_LADDER]});return
+                retired=("Foreman / Charge Hand","Site Manager","Project Manager")
+                rows=c.execute("SELECT r.*,pr.name parent_name,COUNT(p.module) permission_count FROM roles r LEFT JOIN roles pr ON pr.id=r.parent_role_id LEFT JOIN permissions p ON p.role_id=r.id WHERE r.company_id=? AND r.name NOT IN (?,?,?) GROUP BY r.id ORDER BY r.access_level DESC,r.name",(u["company_id"],*retired)).fetchall();self.j(200,{"roles":[dict(x) for x in rows],"ladder":[{"level":n,"name":name,"description":desc} for n,name,desc in ACCESS_LADDER]});return
             if path=="/api/roles" and self.command=="POST":
                 if not require_admin(self,u):return
                 b=self.body();name=str(b.get("name","")).strip()
@@ -2052,7 +2090,7 @@ class Handler(BaseHTTPRequestHandler):
                 if role_id(c,u["company_id"],name):self.j(409,{"error":"Role already exists"});return
                 try: level=int(b.get("access_level",1))
                 except Exception: level=1
-                if level<1 or level>9:self.j(400,{"error":"Access level must be 1-9"});return
+                if level<1 or level>8:self.j(400,{"error":"Access level must be 1-8"});return
                 parent_id=b.get("parent_role_id") or None
                 if parent_id:
                     pr=c.execute("SELECT access_level FROM roles WHERE id=? AND company_id=?",(parent_id,u["company_id"])).fetchone()
@@ -2060,17 +2098,7 @@ class Handler(BaseHTTPRequestHandler):
                 rid=secrets.token_hex(6);c.execute("INSERT INTO roles(id,company_id,name,access_level,parent_role_id) VALUES(?,?,?,?,?)",(rid,u["company_id"],name,level,parent_id))
                 c.executemany("INSERT INTO permissions(role_id,module,action,allowed) VALUES(?,?,?,0)",[(rid,m,a) for m in MODULES for a in ACTIONS])
                 # Ladder preset: higher levels receive all permissions of lower levels plus the next management layer.
-                preset = {
-                    1: [("Projects","View"),("Daily Control","View"),("Manpower","View"),("Reports","View")],
-                    2: [(m,a) for m in ("Projects","Daily Control","Manpower","Snags") for a in ("View","Create","Edit")],
-                    3: [(m,a) for m in ("Projects","Daily Control","Manpower","RFIs","Risks","Actions","Snags","Materials","Permits","RAMS") for a in ("View","Create","Edit","Export")],
-                    4: [(m,a) for m in MODULES if m not in ("Users","Roles") for a in ("View","Create","Edit","Export")],
-                    5: [(m,a) for m in MODULES for a in ("View","Create","Edit","Approve","Export")],
-                    6: [(m,a) for m in MODULES for a in ("View","Create","Edit","Approve","Export")],
-                    7: [(m,a) for m in MODULES for a in ("View","Create","Edit","Approve","Export")],
-                    8: [(m,a) for m in MODULES for a in ("View","Create","Edit","Approve","Export")],
-                    9: [(m,a) for m in MODULES for a in ACTIONS],
-                }.get(level,[])
+                preset = LADDER_PERMISSION_PRESETS.get(level,[])
                 for mod,act in preset:
                     c.execute("UPDATE permissions SET allowed=1 WHERE role_id=? AND module=? AND action=?",(rid,mod,act))
                 audit_row(c,u,"ROLE_CREATE",rid);c.commit();self.j(201,{"id":rid,"access_level":level});return
