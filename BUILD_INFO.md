@@ -1,9 +1,7 @@
-Construction Control — Phase 32.23
+Construction Control — Phase 32.24
 
-Role and permission structure updated per user direction.
-UI generic hover tooltip removed.
-Users/staff remain add/edit without delete.
-Programme/calendar/PM cockpit/training features from Phase 32.22 retained.
-
-Validation: 15 targeted tests passed; Python/JavaScript syntax checks passed.
-Full historical suite not claimed because older tests contain superseded role/fixture expectations.
+Fixes Render dashboard boot error: `DASH_MODULES is not defined`.
+Restores the dashboard module declaration before dashboard rendering.
+Root/static frontend synchronised.
+Phase 32.20–32.24 targeted UI/PM/programme/role tests: 9 passed.
+Full historical suite not claimed.

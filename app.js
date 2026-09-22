@@ -63,6 +63,8 @@ async function openDashboardTask(projectId,planId,taskId){
   modal('Task — '+esc(t.name),`<div class="task-detail-grid"><div><span class="eyebrow">STATUS</span><b>${esc(t.control_status||t.task_status||t.status||((Number(t.percent_complete||0)>=100)?'Finished':Number(t.percent_complete||0)>0?'Ongoing':'Starting'))}</b></div><div><span class="eyebrow">PROGRESS</span><b>${Number(t.percent_complete||0)}%</b></div><div><span class="eyebrow">DATES</span><b>${esc(t.start_date)} → ${esc(t.finish_date)}</b></div><div><span class="eyebrow">PLANNED MEN</span><b>${Number(t.planned_men||0).toFixed(1)}</b></div></div><p class="muted">Programme: ${esc(d.plan.name)}${t.notes?'<br>'+esc(t.notes):''}</p><div class="modal-actions"><button class="secondary" onclick="closeModal();planning();setTimeout(()=>openPlan('${esc(planId)}'),150)">Open programme</button><button onclick="closeModal();editTask('${esc(planId)}','${esc(taskId)}')">Edit task</button></div>`);
  }catch(e){alert(e.message)}
 }
+let dashboardData=null;
+const DASH_MODULES=[['RFIs','rfis','blue','RFIs'],['Risks','risks','red','Risks'],['Actions','actions','amber','Actions'],['Snags','snags','purple','Snags'],['Approvals','pending_approvals','teal','Pending approvals']];
 function renderDashboard(){
  const d=dashboardData; const sel=document.getElementById('dashProject')?.value||'all';
  const projects=sel==='all'?d.project_summary:d.project_summary.filter(p=>p.project_id===sel);
