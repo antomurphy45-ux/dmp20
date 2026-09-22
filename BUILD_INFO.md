@@ -1,7 +1,8 @@
-Construction Control — Phase 32.24
+Construction Control — Phase 32.25
 
-Fixes Render dashboard boot error: `DASH_MODULES is not defined`.
-Restores the dashboard module declaration before dashboard rendering.
+Fixes Render dashboard boot error: `dashboardProjectCards is not defined`.
+Restores the dashboardProjectCards function before dashboard rendering.
 Root/static frontend synchronised.
-Phase 32.20–32.24 targeted UI/PM/programme/role tests: 9 passed.
+Phase 32.20–32.25 targeted regression tests: 12 passed.
+Local runtime health/root smoke test passed.
 Full historical suite not claimed.
