@@ -1,11 +1,5 @@
-# Build information
+# Construction Control — Phase 32.22
 
-Version: Phase 32.19
+Programme calendar UX update: Calendar now displays as a monthly Sunday-Saturday board with a week-number column and compact clickable activity tabs inside each date, based on the supplied reference image. Date cells open a detail view and retain calendar exception controls. Previous/next month navigation is included.
 
-Changes:
-- Programme activities now keep Edit / Move / Delete at the far right of the same Gantt row.
-- Removed the duplicate Activities list below the Gantt.
-- Added certificate/supporting-document upload to Staff Training records.
-- Added training document list, download and delete.
-- Fixed Unicode programme-name Excel export header handling.
-- Retained no-disk Render bootstrap using the root-level `render_seed.db`.
+Built from the Phase 32.21 tested codebase. Root and static frontend copies are synchronised. Visible circled-i button icons remain removed.
