@@ -6,10 +6,7 @@ COPY app.py app.js app.css index.html requirements.txt ./
 COPY dub84_programme.json ./dub84_programme.json
 COPY render_seed.db ./render_seed.db
 
-RUN mkdir -p /data/uploads /data/backups \
-    && chown -R 1000:1000 /data
-
-RUN mkdir -p static \
+RUN mkdir -p static /data/uploads /data/backups \
     && cp app.js app.css index.html static/
 
 ENV CONSTRUCTION_CONTROL_DB=/data/construction_control.db
