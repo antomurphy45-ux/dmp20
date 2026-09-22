@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: daily-program-management
+    runtime: docker
+    plan: starter
+    healthCheckPath: /healthz
+    envVars:
+      - key: CONSTRUCTION_CONTROL_DB
+        value: /var/data/construction_control.db
+      - key: CONSTRUCTION_CONTROL_UPLOADS
+        value: /var/data/uploads
+      - key: PORT
+        value: "10000"

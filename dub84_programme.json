@@ -1,0 +1,3337 @@
+{
+  "source_file": "DUB 84 Infil Programme draft.xlsx",
+  "source_sheet": "Sheet1 + Manloader",
+  "project": {
+    "id": "DUB84",
+    "name": "DUB84 \u2014 Infil Programme",
+    "start_date": "2026-09-01",
+    "finish_date": "2026-11-25",
+    "client_name": "",
+    "site_address": "DUB84",
+    "scope_ref": "DUB 84 Infil Programme draft.xlsx",
+    "manloader_peak": 34.0,
+    "manloader_days": [
+      {
+        "date": "2026-09-01",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": "WW36"
+      },
+      {
+        "date": "2026-09-02",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-03",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-04",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-07",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": "WW37"
+      },
+      {
+        "date": "2026-09-08",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-09",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-10",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-11",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": "WW38"
+      },
+      {
+        "date": "2026-09-14",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-15",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-16",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-17",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": "WW39"
+      },
+      {
+        "date": "2026-09-18",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-21",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-22",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-23",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": "WW40"
+      },
+      {
+        "date": "2026-09-24",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-25",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-28",
+        "planned_men": 14.0,
+        "offset": 14.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-09-29",
+        "planned_men": 6.0,
+        "offset": 6.0,
+        "working_week": "WW41"
+      },
+      {
+        "date": "2026-09-30",
+        "planned_men": 6.0,
+        "offset": 6.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-01",
+        "planned_men": 34.0,
+        "offset": 34.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-02",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-05",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": "WW42"
+      },
+      {
+        "date": "2026-10-06",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-07",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-08",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-09",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": "WW43"
+      },
+      {
+        "date": "2026-10-12",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-13",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-14",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-15",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": "WW44"
+      },
+      {
+        "date": "2026-10-16",
+        "planned_men": 28.0,
+        "offset": 28.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-19",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-20",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-21",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": "WW45"
+      },
+      {
+        "date": "2026-10-22",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-23",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-26",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-27",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": "WW46"
+      },
+      {
+        "date": "2026-10-28",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-29",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-10-30",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-02",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": "WW47"
+      },
+      {
+        "date": "2026-11-03",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-04",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-05",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-06",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": "WW48"
+      },
+      {
+        "date": "2026-11-09",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-10",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-11",
+        "planned_men": 24.0,
+        "offset": 24.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-12",
+        "planned_men": 12.0,
+        "offset": 12.0,
+        "working_week": "WW49"
+      },
+      {
+        "date": "2026-11-13",
+        "planned_men": 12.0,
+        "offset": 12.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-16",
+        "planned_men": 12.0,
+        "offset": 12.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-17",
+        "planned_men": 12.0,
+        "offset": 12.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-18",
+        "planned_men": 12.0,
+        "offset": 12.0,
+        "working_week": "WW50"
+      },
+      {
+        "date": "2026-11-19",
+        "planned_men": 12.0,
+        "offset": 12.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-20",
+        "planned_men": 12.0,
+        "offset": 12.0,
+        "working_week": ""
+      },
+      {
+        "date": "2026-11-23",
+        "planned_men": 0.0,
+        "offset": 0.0,
+        "working_week": ""
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "activity_id": "DUB84-R003",
+      "name": "Cable delivery 1",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": null,
+      "milestone": true,
+      "notes": "Source: DUB 84 Infil Programme draft.xlsx, Sheet1 row 3.",
+      "source_row": 3
+    },
+    {
+      "activity_id": "DUB84-R004",
+      "name": "Cable delivery 2",
+      "start_date": "2026-10-02",
+      "finish_date": "2026-10-02",
+      "planned_men": 0.0,
+      "parent_id": null,
+      "milestone": true,
+      "notes": "Source: DUB 84 Infil Programme draft.xlsx, Sheet1 row 4.",
+      "source_row": 4
+    },
+    {
+      "activity_id": "DUB84-R005",
+      "name": "Cable delivery 3",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": null,
+      "milestone": true,
+      "notes": "Source: DUB 84 Infil Programme draft.xlsx, Sheet1 row 5.",
+      "source_row": 5
+    },
+    {
+      "activity_id": "DUB84-R006",
+      "name": "Cable delivery 4",
+      "start_date": "2026-10-16",
+      "finish_date": "2026-10-16",
+      "planned_men": 0.0,
+      "parent_id": null,
+      "milestone": true,
+      "notes": "Source: DUB 84 Infil Programme draft.xlsx, Sheet1 row 6.",
+      "source_row": 6
+    },
+    {
+      "activity_id": "DUB84-R008",
+      "name": "Initial Works",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-11-09",
+      "planned_men": 0.0,
+      "parent_id": null,
+      "milestone": false,
+      "notes": "Source: Sheet1 row 8.",
+      "source_row": 8
+    },
+    {
+      "activity_id": "DUB84-R009",
+      "name": "Manufacturing & installation of containment",
+      "start_date": "2026-09-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 6.0,
+      "parent_id": "DUB84-R008",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 9.",
+      "source_row": 9
+    },
+    {
+      "activity_id": "DUB84-R010",
+      "name": "Moving of Existing whips",
+      "start_date": "2026-09-01",
+      "finish_date": "2026-09-28",
+      "planned_men": 8.0,
+      "parent_id": "DUB84-R008",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 10.",
+      "source_row": 10
+    },
+    {
+      "activity_id": "DUB84-R011",
+      "name": "Delivery 1 Reciving of Whip cables transporting to Electrical rooms",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-16",
+      "planned_men": 4.0,
+      "parent_id": "DUB84-R008",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 11.",
+      "source_row": 11
+    },
+    {
+      "activity_id": "DUB84-R012",
+      "name": "Delivery 2 Reciving of Whip cables transporting to Electrical rooms",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-16",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R008",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 12.",
+      "source_row": 12
+    },
+    {
+      "activity_id": "DUB84-R013",
+      "name": "Delivery 3 Reciving of Whip cables transporting to Electrical rooms",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-16",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R008",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 13.",
+      "source_row": 13
+    },
+    {
+      "activity_id": "DUB84-R014",
+      "name": "Delivery 4 Reciving of Whip cables transporting to Electrical rooms",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-16",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R008",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 14.",
+      "source_row": 14
+    },
+    {
+      "activity_id": "DUB84-R016",
+      "name": "Delivery 1 Temp. Labeling of Whip cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-07",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R008",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 16.",
+      "source_row": 16
+    },
+    {
+      "activity_id": "DUB84-R017",
+      "name": "Delivery 2 Temp. Labeling of Whip cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-07",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R008",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 17.",
+      "source_row": 17
+    },
+    {
+      "activity_id": "DUB84-R018",
+      "name": "Delivery 3 Temp. Labeling of Whip cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-07",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R008",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 18.",
+      "source_row": 18
+    },
+    {
+      "activity_id": "DUB84-R019",
+      "name": "Delivery 4 Temp. Labeling of Whip cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-07",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R008",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 19.",
+      "source_row": 19
+    },
+    {
+      "activity_id": "DUB84-DH11",
+      "name": "DH 1-1",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-11-25",
+      "planned_men": 0.0,
+      "parent_id": null,
+      "milestone": false,
+      "notes": "Source: Sheet1 detailed section rows 56-191. Panel overview rows 28-42 retained as panel target metadata.",
+      "source_row": 56
+    },
+    {
+      "activity_id": "DUB84-R022",
+      "name": "Phase 1",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-14",
+      "planned_men": 24.0,
+      "parent_id": "DUB84-DH11",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 22. Phase planned manpower from column D: 24.",
+      "source_row": 22
+    },
+    {
+      "activity_id": "DUB84-R023",
+      "name": "Phase 2",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-28",
+      "planned_men": 24.0,
+      "parent_id": "DUB84-DH11",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 23. Phase planned manpower from column D: 24.",
+      "source_row": 23
+    },
+    {
+      "activity_id": "DUB84-R024",
+      "name": "Phase 3",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-11-11",
+      "planned_men": 24.0,
+      "parent_id": "DUB84-DH11",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 24. Phase planned manpower from column D: 24.",
+      "source_row": 24
+    },
+    {
+      "activity_id": "DUB84-R025",
+      "name": "Phase 4",
+      "start_date": "2026-11-12",
+      "finish_date": "2026-11-20",
+      "planned_men": 12.0,
+      "parent_id": "DUB84-DH11",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 25. Phase planned manpower from column D: 12.",
+      "source_row": 25
+    },
+    {
+      "activity_id": "DUB84-R057",
+      "name": "Panel 7- 72 No Cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R022",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 57. Source panel resource marker (column H): 1.",
+      "source_row": 57
+    },
+    {
+      "activity_id": "DUB84-R058",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R057",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 58.",
+      "source_row": 58
+    },
+    {
+      "activity_id": "DUB84-R059",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R057",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 59.",
+      "source_row": 59
+    },
+    {
+      "activity_id": "DUB84-R060",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-02",
+      "finish_date": "2026-10-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R057",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 60.",
+      "source_row": 60
+    },
+    {
+      "activity_id": "DUB84-R061",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-06",
+      "finish_date": "2026-10-07",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R057",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 61.",
+      "source_row": 61
+    },
+    {
+      "activity_id": "DUB84-R062",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-06",
+      "finish_date": "2026-10-08",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R057",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 62.",
+      "source_row": 62
+    },
+    {
+      "activity_id": "DUB84-R063",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R057",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 63.",
+      "source_row": 63
+    },
+    {
+      "activity_id": "DUB84-R064",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R057",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 64.",
+      "source_row": 64
+    },
+    {
+      "activity_id": "DUB84-R065",
+      "name": "Upload Fit",
+      "start_date": "2026-10-12",
+      "finish_date": "2026-10-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R057",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 65.",
+      "source_row": 65
+    },
+    {
+      "activity_id": "DUB84-R066",
+      "name": "Panel 9- 84 No Cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R022",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 66.",
+      "source_row": 66
+    },
+    {
+      "activity_id": "DUB84-R067",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R066",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 67.",
+      "source_row": 67
+    },
+    {
+      "activity_id": "DUB84-R068",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R066",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 68.",
+      "source_row": 68
+    },
+    {
+      "activity_id": "DUB84-R069",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-02",
+      "finish_date": "2026-10-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R066",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 69.",
+      "source_row": 69
+    },
+    {
+      "activity_id": "DUB84-R070",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R066",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 70.",
+      "source_row": 70
+    },
+    {
+      "activity_id": "DUB84-R071",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-13",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R066",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 71.",
+      "source_row": 71
+    },
+    {
+      "activity_id": "DUB84-R072",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R066",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 72.",
+      "source_row": 72
+    },
+    {
+      "activity_id": "DUB84-R073",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R066",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 73.",
+      "source_row": 73
+    },
+    {
+      "activity_id": "DUB84-R074",
+      "name": "Upload Fit",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R066",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 74.",
+      "source_row": 74
+    },
+    {
+      "activity_id": "DUB84-R075",
+      "name": "Panel 15- 64 No Cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R022",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 75.",
+      "source_row": 75
+    },
+    {
+      "activity_id": "DUB84-R076",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R075",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 76.",
+      "source_row": 76
+    },
+    {
+      "activity_id": "DUB84-R077",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R075",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 77.",
+      "source_row": 77
+    },
+    {
+      "activity_id": "DUB84-R078",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-02",
+      "finish_date": "2026-10-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R075",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 78.",
+      "source_row": 78
+    },
+    {
+      "activity_id": "DUB84-R079",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-06",
+      "finish_date": "2026-10-07",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R075",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 79.",
+      "source_row": 79
+    },
+    {
+      "activity_id": "DUB84-R080",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-06",
+      "finish_date": "2026-10-08",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R075",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 80.",
+      "source_row": 80
+    },
+    {
+      "activity_id": "DUB84-R081",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R075",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 81.",
+      "source_row": 81
+    },
+    {
+      "activity_id": "DUB84-R082",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R075",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 82.",
+      "source_row": 82
+    },
+    {
+      "activity_id": "DUB84-R083",
+      "name": "Upload Fit",
+      "start_date": "2026-10-12",
+      "finish_date": "2026-10-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R075",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 83.",
+      "source_row": 83
+    },
+    {
+      "activity_id": "DUB84-R084",
+      "name": "Panel 17- 92 No Cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R022",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 84.",
+      "source_row": 84
+    },
+    {
+      "activity_id": "DUB84-R085",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R084",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 85.",
+      "source_row": 85
+    },
+    {
+      "activity_id": "DUB84-R086",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R084",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 86.",
+      "source_row": 86
+    },
+    {
+      "activity_id": "DUB84-R087",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-02",
+      "finish_date": "2026-10-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R084",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 87.",
+      "source_row": 87
+    },
+    {
+      "activity_id": "DUB84-R088",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R084",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 88.",
+      "source_row": 88
+    },
+    {
+      "activity_id": "DUB84-R089",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-13",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R084",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 89.",
+      "source_row": 89
+    },
+    {
+      "activity_id": "DUB84-R090",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R084",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 90.",
+      "source_row": 90
+    },
+    {
+      "activity_id": "DUB84-R091",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R084",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 91.",
+      "source_row": 91
+    },
+    {
+      "activity_id": "DUB84-R092",
+      "name": "Upload Fit",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R084",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 92.",
+      "source_row": 92
+    },
+    {
+      "activity_id": "DUB84-R093",
+      "name": "Panel 19- 88 No Cables",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R023",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 93. Source panel resource marker (column H): 2.",
+      "source_row": 93
+    },
+    {
+      "activity_id": "DUB84-R094",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R093",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 94.",
+      "source_row": 94
+    },
+    {
+      "activity_id": "DUB84-R095",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R093",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 95.",
+      "source_row": 95
+    },
+    {
+      "activity_id": "DUB84-R096",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-16",
+      "finish_date": "2026-10-19",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R093",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 96.",
+      "source_row": 96
+    },
+    {
+      "activity_id": "DUB84-R097",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-20",
+      "finish_date": "2026-10-21",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R093",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 97.",
+      "source_row": 97
+    },
+    {
+      "activity_id": "DUB84-R098",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-20",
+      "finish_date": "2026-10-22",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R093",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 98.",
+      "source_row": 98
+    },
+    {
+      "activity_id": "DUB84-R099",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R093",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 99.",
+      "source_row": 99
+    },
+    {
+      "activity_id": "DUB84-R100",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R093",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 100.",
+      "source_row": 100
+    },
+    {
+      "activity_id": "DUB84-R101",
+      "name": "Upload Fit",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R093",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 101.",
+      "source_row": 101
+    },
+    {
+      "activity_id": "DUB84-R102",
+      "name": "Panel 21- 80 No Cables",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R023",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 102.",
+      "source_row": 102
+    },
+    {
+      "activity_id": "DUB84-R103",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R102",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 103.",
+      "source_row": 103
+    },
+    {
+      "activity_id": "DUB84-R104",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R102",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 104.",
+      "source_row": 104
+    },
+    {
+      "activity_id": "DUB84-R105",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-16",
+      "finish_date": "2026-10-19",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R102",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 105.",
+      "source_row": 105
+    },
+    {
+      "activity_id": "DUB84-R106",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-26",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R102",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 106.",
+      "source_row": 106
+    },
+    {
+      "activity_id": "DUB84-R107",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-27",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R102",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 107.",
+      "source_row": 107
+    },
+    {
+      "activity_id": "DUB84-R108",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R102",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 108.",
+      "source_row": 108
+    },
+    {
+      "activity_id": "DUB84-R109",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R102",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 109.",
+      "source_row": 109
+    },
+    {
+      "activity_id": "DUB84-R110",
+      "name": "Upload Fit",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R102",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 110.",
+      "source_row": 110
+    },
+    {
+      "activity_id": "DUB84-R111",
+      "name": "Panel 23- 76 No Cables",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R023",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 111.",
+      "source_row": 111
+    },
+    {
+      "activity_id": "DUB84-R112",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R111",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 112.",
+      "source_row": 112
+    },
+    {
+      "activity_id": "DUB84-R113",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R111",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 113.",
+      "source_row": 113
+    },
+    {
+      "activity_id": "DUB84-R114",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-16",
+      "finish_date": "2026-10-19",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R111",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 114.",
+      "source_row": 114
+    },
+    {
+      "activity_id": "DUB84-R115",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-20",
+      "finish_date": "2026-10-21",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R111",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 115.",
+      "source_row": 115
+    },
+    {
+      "activity_id": "DUB84-R116",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-20",
+      "finish_date": "2026-10-22",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R111",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 116.",
+      "source_row": 116
+    },
+    {
+      "activity_id": "DUB84-R117",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R111",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 117.",
+      "source_row": 117
+    },
+    {
+      "activity_id": "DUB84-R118",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R111",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 118.",
+      "source_row": 118
+    },
+    {
+      "activity_id": "DUB84-R119",
+      "name": "Upload Fit",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R111",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 119.",
+      "source_row": 119
+    },
+    {
+      "activity_id": "DUB84-R120",
+      "name": "Panel 25- 12 No Cables",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R023",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 120.",
+      "source_row": 120
+    },
+    {
+      "activity_id": "DUB84-R121",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R120",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 121.",
+      "source_row": 121
+    },
+    {
+      "activity_id": "DUB84-R122",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R120",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 122.",
+      "source_row": 122
+    },
+    {
+      "activity_id": "DUB84-R123",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-16",
+      "finish_date": "2026-10-19",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R120",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 123.",
+      "source_row": 123
+    },
+    {
+      "activity_id": "DUB84-R124",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-26",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R120",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 124.",
+      "source_row": 124
+    },
+    {
+      "activity_id": "DUB84-R125",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-27",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R120",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 125.",
+      "source_row": 125
+    },
+    {
+      "activity_id": "DUB84-R126",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R120",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 126.",
+      "source_row": 126
+    },
+    {
+      "activity_id": "DUB84-R127",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R120",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 127.",
+      "source_row": 127
+    },
+    {
+      "activity_id": "DUB84-R128",
+      "name": "Upload Fit",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R120",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 128.",
+      "source_row": 128
+    },
+    {
+      "activity_id": "DUB84-R129",
+      "name": "Panel 27- 76 No Cables",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R024",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 129. Source panel resource marker (column H): 3.",
+      "source_row": 129
+    },
+    {
+      "activity_id": "DUB84-R130",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R129",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 130.",
+      "source_row": 130
+    },
+    {
+      "activity_id": "DUB84-R131",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R129",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 131.",
+      "source_row": 131
+    },
+    {
+      "activity_id": "DUB84-R132",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-30",
+      "finish_date": "2026-11-02",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R129",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 132.",
+      "source_row": 132
+    },
+    {
+      "activity_id": "DUB84-R133",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-03",
+      "finish_date": "2026-11-04",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R129",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 133.",
+      "source_row": 133
+    },
+    {
+      "activity_id": "DUB84-R134",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-03",
+      "finish_date": "2026-11-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R129",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 134.",
+      "source_row": 134
+    },
+    {
+      "activity_id": "DUB84-R135",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R129",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 135.",
+      "source_row": 135
+    },
+    {
+      "activity_id": "DUB84-R136",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R129",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 136.",
+      "source_row": 136
+    },
+    {
+      "activity_id": "DUB84-R137",
+      "name": "Upload Fit",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R129",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 137.",
+      "source_row": 137
+    },
+    {
+      "activity_id": "DUB84-R138",
+      "name": "Panel 31- 80 No Cables",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R024",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 138.",
+      "source_row": 138
+    },
+    {
+      "activity_id": "DUB84-R139",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R138",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 139.",
+      "source_row": 139
+    },
+    {
+      "activity_id": "DUB84-R140",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R138",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 140.",
+      "source_row": 140
+    },
+    {
+      "activity_id": "DUB84-R141",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-30",
+      "finish_date": "2026-11-02",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R138",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 141.",
+      "source_row": 141
+    },
+    {
+      "activity_id": "DUB84-R142",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R138",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 142.",
+      "source_row": 142
+    },
+    {
+      "activity_id": "DUB84-R143",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-10",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R138",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 143.",
+      "source_row": 143
+    },
+    {
+      "activity_id": "DUB84-R144",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R138",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 144.",
+      "source_row": 144
+    },
+    {
+      "activity_id": "DUB84-R145",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R138",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 145.",
+      "source_row": 145
+    },
+    {
+      "activity_id": "DUB84-R146",
+      "name": "Upload Fit",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R138",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 146.",
+      "source_row": 146
+    },
+    {
+      "activity_id": "DUB84-R147",
+      "name": "Panel 33- 88 No Cables",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R024",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 147.",
+      "source_row": 147
+    },
+    {
+      "activity_id": "DUB84-R148",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R147",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 148.",
+      "source_row": 148
+    },
+    {
+      "activity_id": "DUB84-R149",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R147",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 149.",
+      "source_row": 149
+    },
+    {
+      "activity_id": "DUB84-R150",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-30",
+      "finish_date": "2026-11-02",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R147",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 150.",
+      "source_row": 150
+    },
+    {
+      "activity_id": "DUB84-R151",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-03",
+      "finish_date": "2026-11-04",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R147",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 151.",
+      "source_row": 151
+    },
+    {
+      "activity_id": "DUB84-R152",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-03",
+      "finish_date": "2026-11-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R147",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 152.",
+      "source_row": 152
+    },
+    {
+      "activity_id": "DUB84-R153",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R147",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 153.",
+      "source_row": 153
+    },
+    {
+      "activity_id": "DUB84-R154",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R147",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 154.",
+      "source_row": 154
+    },
+    {
+      "activity_id": "DUB84-R155",
+      "name": "Upload Fit",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R147",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 155.",
+      "source_row": 155
+    },
+    {
+      "activity_id": "DUB84-R156",
+      "name": "Panel 39- 76 No Cables",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R024",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 156.",
+      "source_row": 156
+    },
+    {
+      "activity_id": "DUB84-R157",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R156",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 157.",
+      "source_row": 157
+    },
+    {
+      "activity_id": "DUB84-R158",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R156",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 158.",
+      "source_row": 158
+    },
+    {
+      "activity_id": "DUB84-R159",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-30",
+      "finish_date": "2026-11-02",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R156",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 159.",
+      "source_row": 159
+    },
+    {
+      "activity_id": "DUB84-R160",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R156",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 160.",
+      "source_row": 160
+    },
+    {
+      "activity_id": "DUB84-R161",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-10",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R156",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 161.",
+      "source_row": 161
+    },
+    {
+      "activity_id": "DUB84-R162",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R156",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 162.",
+      "source_row": 162
+    },
+    {
+      "activity_id": "DUB84-R163",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R156",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 163.",
+      "source_row": 163
+    },
+    {
+      "activity_id": "DUB84-R164",
+      "name": "Upload Fit",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R156",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 164.",
+      "source_row": 164
+    },
+    {
+      "activity_id": "DUB84-R165",
+      "name": "Panel 41- 68 No Cables",
+      "start_date": "2026-11-12",
+      "finish_date": "2026-11-20",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R025",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 165. Source panel resource marker (column H): 4.",
+      "source_row": 165
+    },
+    {
+      "activity_id": "DUB84-R166",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-11-12",
+      "finish_date": "2026-11-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R165",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 166.",
+      "source_row": 166
+    },
+    {
+      "activity_id": "DUB84-R167",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-11-12",
+      "finish_date": "2026-11-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R165",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 167.",
+      "source_row": 167
+    },
+    {
+      "activity_id": "DUB84-R168",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-11-13",
+      "finish_date": "2026-11-16",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R165",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 168.",
+      "source_row": 168
+    },
+    {
+      "activity_id": "DUB84-R169",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-17",
+      "finish_date": "2026-11-18",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R165",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 169.",
+      "source_row": 169
+    },
+    {
+      "activity_id": "DUB84-R170",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-17",
+      "finish_date": "2026-11-19",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R165",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 170.",
+      "source_row": 170
+    },
+    {
+      "activity_id": "DUB84-R171",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-20",
+      "finish_date": "2026-11-20",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R165",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 171.",
+      "source_row": 171
+    },
+    {
+      "activity_id": "DUB84-R172",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-20",
+      "finish_date": "2026-11-20",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R165",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 172.",
+      "source_row": 172
+    },
+    {
+      "activity_id": "DUB84-R173",
+      "name": "Upload Fit",
+      "start_date": "2026-11-20",
+      "finish_date": "2026-11-20",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R165",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 173.",
+      "source_row": 173
+    },
+    {
+      "activity_id": "DUB84-R174",
+      "name": "Panel 45- 84 No Cables",
+      "start_date": "2026-11-12",
+      "finish_date": "2026-11-25",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R025",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 174.",
+      "source_row": 174
+    },
+    {
+      "activity_id": "DUB84-R175",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-11-12",
+      "finish_date": "2026-11-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R174",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 175.",
+      "source_row": 175
+    },
+    {
+      "activity_id": "DUB84-R176",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-11-12",
+      "finish_date": "2026-11-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R174",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 176.",
+      "source_row": 176
+    },
+    {
+      "activity_id": "DUB84-R177",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-11-13",
+      "finish_date": "2026-11-16",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R174",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 177.",
+      "source_row": 177
+    },
+    {
+      "activity_id": "DUB84-R178",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-20",
+      "finish_date": "2026-11-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R174",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 178.",
+      "source_row": 178
+    },
+    {
+      "activity_id": "DUB84-R179",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-20",
+      "finish_date": "2026-11-24",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R174",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 179.",
+      "source_row": 179
+    },
+    {
+      "activity_id": "DUB84-R180",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-25",
+      "finish_date": "2026-11-25",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R174",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 180.",
+      "source_row": 180
+    },
+    {
+      "activity_id": "DUB84-R181",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-25",
+      "finish_date": "2026-11-25",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R174",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 181.",
+      "source_row": 181
+    },
+    {
+      "activity_id": "DUB84-R182",
+      "name": "Upload Fit",
+      "start_date": "2026-11-25",
+      "finish_date": "2026-11-25",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R174",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 182.",
+      "source_row": 182
+    },
+    {
+      "activity_id": "DUB84-R183",
+      "name": "Panel 47- 76 No Cables",
+      "start_date": "2026-11-12",
+      "finish_date": "2026-11-20",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R025",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 183.",
+      "source_row": 183
+    },
+    {
+      "activity_id": "DUB84-R184",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-11-12",
+      "finish_date": "2026-11-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R183",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 184.",
+      "source_row": 184
+    },
+    {
+      "activity_id": "DUB84-R185",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-11-12",
+      "finish_date": "2026-11-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R183",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 185.",
+      "source_row": 185
+    },
+    {
+      "activity_id": "DUB84-R186",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-11-13",
+      "finish_date": "2026-11-16",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R183",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 186.",
+      "source_row": 186
+    },
+    {
+      "activity_id": "DUB84-R187",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-17",
+      "finish_date": "2026-11-18",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R183",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 187.",
+      "source_row": 187
+    },
+    {
+      "activity_id": "DUB84-R188",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-17",
+      "finish_date": "2026-11-19",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R183",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 188.",
+      "source_row": 188
+    },
+    {
+      "activity_id": "DUB84-R189",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-20",
+      "finish_date": "2026-11-20",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R183",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 189.",
+      "source_row": 189
+    },
+    {
+      "activity_id": "DUB84-R190",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-20",
+      "finish_date": "2026-11-20",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R183",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 190.",
+      "source_row": 190
+    },
+    {
+      "activity_id": "DUB84-R191",
+      "name": "Upload Fit",
+      "start_date": "2026-11-20",
+      "finish_date": "2026-11-20",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R183",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 191.",
+      "source_row": 191
+    },
+    {
+      "activity_id": "DUB84-DH22",
+      "name": "DH 2-2",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": null,
+      "milestone": false,
+      "notes": "Source: Sheet1 detailed section rows 193-300. Panel overview rows 44-55 retained as panel target metadata.",
+      "source_row": 192
+    },
+    {
+      "activity_id": "DUB84-R193",
+      "name": "Panel 9- 56 No Cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 193. Source panel resource marker (column H): 1.",
+      "source_row": 193
+    },
+    {
+      "activity_id": "DUB84-R194",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R193",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 194.",
+      "source_row": 194
+    },
+    {
+      "activity_id": "DUB84-R195",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R193",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 195.",
+      "source_row": 195
+    },
+    {
+      "activity_id": "DUB84-R196",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-02",
+      "finish_date": "2026-10-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R193",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 196.",
+      "source_row": 196
+    },
+    {
+      "activity_id": "DUB84-R197",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-06",
+      "finish_date": "2026-10-07",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R193",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 197.",
+      "source_row": 197
+    },
+    {
+      "activity_id": "DUB84-R198",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-06",
+      "finish_date": "2026-10-08",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R193",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 198.",
+      "source_row": 198
+    },
+    {
+      "activity_id": "DUB84-R199",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R193",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 199.",
+      "source_row": 199
+    },
+    {
+      "activity_id": "DUB84-R200",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R193",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 200.",
+      "source_row": 200
+    },
+    {
+      "activity_id": "DUB84-R201",
+      "name": "Upload Fit",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R193",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 201.",
+      "source_row": 201
+    },
+    {
+      "activity_id": "DUB84-R202",
+      "name": "Panel 17- 60 No Cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 202.",
+      "source_row": 202
+    },
+    {
+      "activity_id": "DUB84-R203",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R202",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 203.",
+      "source_row": 203
+    },
+    {
+      "activity_id": "DUB84-R204",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R202",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 204.",
+      "source_row": 204
+    },
+    {
+      "activity_id": "DUB84-R205",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-02",
+      "finish_date": "2026-10-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R202",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 205.",
+      "source_row": 205
+    },
+    {
+      "activity_id": "DUB84-R206",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R202",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 206.",
+      "source_row": 206
+    },
+    {
+      "activity_id": "DUB84-R207",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-13",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R202",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 207.",
+      "source_row": 207
+    },
+    {
+      "activity_id": "DUB84-R208",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R202",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 208.",
+      "source_row": 208
+    },
+    {
+      "activity_id": "DUB84-R209",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R202",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 209.",
+      "source_row": 209
+    },
+    {
+      "activity_id": "DUB84-R210",
+      "name": "Upload Fit",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R202",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 210.",
+      "source_row": 210
+    },
+    {
+      "activity_id": "DUB84-R211",
+      "name": "Panel 21- 60 No Cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 211.",
+      "source_row": 211
+    },
+    {
+      "activity_id": "DUB84-R212",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R211",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 212.",
+      "source_row": 212
+    },
+    {
+      "activity_id": "DUB84-R213",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R211",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 213.",
+      "source_row": 213
+    },
+    {
+      "activity_id": "DUB84-R214",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-02",
+      "finish_date": "2026-10-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R211",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 214.",
+      "source_row": 214
+    },
+    {
+      "activity_id": "DUB84-R215",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-06",
+      "finish_date": "2026-10-07",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R211",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 215.",
+      "source_row": 215
+    },
+    {
+      "activity_id": "DUB84-R216",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-06",
+      "finish_date": "2026-10-08",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R211",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 216.",
+      "source_row": 216
+    },
+    {
+      "activity_id": "DUB84-R217",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R211",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 217.",
+      "source_row": 217
+    },
+    {
+      "activity_id": "DUB84-R218",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R211",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 218.",
+      "source_row": 218
+    },
+    {
+      "activity_id": "DUB84-R219",
+      "name": "Upload Fit",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R211",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 219.",
+      "source_row": 219
+    },
+    {
+      "activity_id": "DUB84-R220",
+      "name": "Panel 23- 52 No Cables",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 220.",
+      "source_row": 220
+    },
+    {
+      "activity_id": "DUB84-R221",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R220",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 221.",
+      "source_row": 221
+    },
+    {
+      "activity_id": "DUB84-R222",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-01",
+      "finish_date": "2026-10-01",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R220",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 222.",
+      "source_row": 222
+    },
+    {
+      "activity_id": "DUB84-R223",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-02",
+      "finish_date": "2026-10-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R220",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 223.",
+      "source_row": 223
+    },
+    {
+      "activity_id": "DUB84-R224",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-12",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R220",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 224.",
+      "source_row": 224
+    },
+    {
+      "activity_id": "DUB84-R225",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-09",
+      "finish_date": "2026-10-13",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R220",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 225.",
+      "source_row": 225
+    },
+    {
+      "activity_id": "DUB84-R226",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R220",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 226.",
+      "source_row": 226
+    },
+    {
+      "activity_id": "DUB84-R227",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R220",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 227.",
+      "source_row": 227
+    },
+    {
+      "activity_id": "DUB84-R228",
+      "name": "Upload Fit",
+      "start_date": "2026-10-14",
+      "finish_date": "2026-10-14",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R220",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 228.",
+      "source_row": 228
+    },
+    {
+      "activity_id": "DUB84-R229",
+      "name": "Panel 27- 4 No Cables",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 229. Source panel resource marker (column H): 2.",
+      "source_row": 229
+    },
+    {
+      "activity_id": "DUB84-R230",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R229",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 230.",
+      "source_row": 230
+    },
+    {
+      "activity_id": "DUB84-R231",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R229",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 231.",
+      "source_row": 231
+    },
+    {
+      "activity_id": "DUB84-R232",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-16",
+      "finish_date": "2026-10-19",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R229",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 232.",
+      "source_row": 232
+    },
+    {
+      "activity_id": "DUB84-R233",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-20",
+      "finish_date": "2026-10-21",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R229",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 233.",
+      "source_row": 233
+    },
+    {
+      "activity_id": "DUB84-R234",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-20",
+      "finish_date": "2026-10-22",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R229",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 234.",
+      "source_row": 234
+    },
+    {
+      "activity_id": "DUB84-R235",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R229",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 235.",
+      "source_row": 235
+    },
+    {
+      "activity_id": "DUB84-R236",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R229",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 236.",
+      "source_row": 236
+    },
+    {
+      "activity_id": "DUB84-R237",
+      "name": "Upload Fit",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R229",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 237.",
+      "source_row": 237
+    },
+    {
+      "activity_id": "DUB84-R238",
+      "name": "Panel 31- 56 No Cables",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 238.",
+      "source_row": 238
+    },
+    {
+      "activity_id": "DUB84-R239",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R238",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 239.",
+      "source_row": 239
+    },
+    {
+      "activity_id": "DUB84-R240",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R238",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 240.",
+      "source_row": 240
+    },
+    {
+      "activity_id": "DUB84-R241",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-16",
+      "finish_date": "2026-10-19",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R238",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 241.",
+      "source_row": 241
+    },
+    {
+      "activity_id": "DUB84-R242",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-26",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R238",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 242.",
+      "source_row": 242
+    },
+    {
+      "activity_id": "DUB84-R243",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-27",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R238",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 243.",
+      "source_row": 243
+    },
+    {
+      "activity_id": "DUB84-R244",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R238",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 244.",
+      "source_row": 244
+    },
+    {
+      "activity_id": "DUB84-R245",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R238",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 245.",
+      "source_row": 245
+    },
+    {
+      "activity_id": "DUB84-R246",
+      "name": "Upload Fit",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R238",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 246.",
+      "source_row": 246
+    },
+    {
+      "activity_id": "DUB84-R247",
+      "name": "Panel 33- 68 No Cables",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 247. Source cached finish was 2026-10-14, which precedes the source start; programme parent finish uses latest child activity finish (2026-10-23) to keep the programme valid.",
+      "source_row": 247
+    },
+    {
+      "activity_id": "DUB84-R248",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R247",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 248.",
+      "source_row": 248
+    },
+    {
+      "activity_id": "DUB84-R249",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R247",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 249.",
+      "source_row": 249
+    },
+    {
+      "activity_id": "DUB84-R250",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-16",
+      "finish_date": "2026-10-19",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R247",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 250.",
+      "source_row": 250
+    },
+    {
+      "activity_id": "DUB84-R251",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-20",
+      "finish_date": "2026-10-21",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R247",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 251.",
+      "source_row": 251
+    },
+    {
+      "activity_id": "DUB84-R252",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-20",
+      "finish_date": "2026-10-22",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R247",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 252.",
+      "source_row": 252
+    },
+    {
+      "activity_id": "DUB84-R253",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R247",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 253.",
+      "source_row": 253
+    },
+    {
+      "activity_id": "DUB84-R254",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R247",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 254.",
+      "source_row": 254
+    },
+    {
+      "activity_id": "DUB84-R255",
+      "name": "Upload Fit",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-23",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R247",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 255.",
+      "source_row": 255
+    },
+    {
+      "activity_id": "DUB84-R256",
+      "name": "Panel 35- 60 No Cables",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 256.",
+      "source_row": 256
+    },
+    {
+      "activity_id": "DUB84-R257",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R256",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 257.",
+      "source_row": 257
+    },
+    {
+      "activity_id": "DUB84-R258",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-15",
+      "finish_date": "2026-10-15",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R256",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 258.",
+      "source_row": 258
+    },
+    {
+      "activity_id": "DUB84-R259",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-16",
+      "finish_date": "2026-10-19",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R256",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 259.",
+      "source_row": 259
+    },
+    {
+      "activity_id": "DUB84-R260",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-26",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R256",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 260.",
+      "source_row": 260
+    },
+    {
+      "activity_id": "DUB84-R261",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-10-23",
+      "finish_date": "2026-10-27",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R256",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 261.",
+      "source_row": 261
+    },
+    {
+      "activity_id": "DUB84-R262",
+      "name": "Testing of Cables",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R256",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 262.",
+      "source_row": 262
+    },
+    {
+      "activity_id": "DUB84-R263",
+      "name": "QC of Aisle",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R256",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 263.",
+      "source_row": 263
+    },
+    {
+      "activity_id": "DUB84-R264",
+      "name": "Upload Fit",
+      "start_date": "2026-10-28",
+      "finish_date": "2026-10-28",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R256",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 264.",
+      "source_row": 264
+    },
+    {
+      "activity_id": "DUB84-R265",
+      "name": "Panel 39- 64 No Cables",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 265. Source panel resource marker (column H): 3. Source cached finish was 2026-10-28, which precedes the source start; programme parent finish uses latest child activity finish (2026-11-06) to keep the programme valid.",
+      "source_row": 265
+    },
+    {
+      "activity_id": "DUB84-R266",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R265",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 266.",
+      "source_row": 266
+    },
+    {
+      "activity_id": "DUB84-R267",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R265",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 267.",
+      "source_row": 267
+    },
+    {
+      "activity_id": "DUB84-R268",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-30",
+      "finish_date": "2026-11-02",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R265",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 268.",
+      "source_row": 268
+    },
+    {
+      "activity_id": "DUB84-R269",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-03",
+      "finish_date": "2026-11-04",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R265",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 269.",
+      "source_row": 269
+    },
+    {
+      "activity_id": "DUB84-R270",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-03",
+      "finish_date": "2026-11-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R265",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 270.",
+      "source_row": 270
+    },
+    {
+      "activity_id": "DUB84-R271",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R265",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 271.",
+      "source_row": 271
+    },
+    {
+      "activity_id": "DUB84-R272",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R265",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 272.",
+      "source_row": 272
+    },
+    {
+      "activity_id": "DUB84-R273",
+      "name": "Upload Fit",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R265",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 273.",
+      "source_row": 273
+    },
+    {
+      "activity_id": "DUB84-R274",
+      "name": "Panel 41- 12 No Cables",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 274.",
+      "source_row": 274
+    },
+    {
+      "activity_id": "DUB84-R275",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R274",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 275.",
+      "source_row": 275
+    },
+    {
+      "activity_id": "DUB84-R276",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R274",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 276.",
+      "source_row": 276
+    },
+    {
+      "activity_id": "DUB84-R277",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-30",
+      "finish_date": "2026-11-02",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R274",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 277.",
+      "source_row": 277
+    },
+    {
+      "activity_id": "DUB84-R278",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R274",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 278.",
+      "source_row": 278
+    },
+    {
+      "activity_id": "DUB84-R279",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-10",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R274",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 279.",
+      "source_row": 279
+    },
+    {
+      "activity_id": "DUB84-R280",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R274",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 280.",
+      "source_row": 280
+    },
+    {
+      "activity_id": "DUB84-R281",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R274",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 281.",
+      "source_row": 281
+    },
+    {
+      "activity_id": "DUB84-R282",
+      "name": "Upload Fit",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R274",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 282.",
+      "source_row": 282
+    },
+    {
+      "activity_id": "DUB84-R283",
+      "name": "Panel 45- 36 No Cables",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 283. Source cached finish was 2026-10-28, which precedes the source start; programme parent finish uses latest child activity finish (2026-11-06) to keep the programme valid.",
+      "source_row": 283
+    },
+    {
+      "activity_id": "DUB84-R284",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R283",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 284.",
+      "source_row": 284
+    },
+    {
+      "activity_id": "DUB84-R285",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R283",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 285.",
+      "source_row": 285
+    },
+    {
+      "activity_id": "DUB84-R286",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-30",
+      "finish_date": "2026-11-02",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R283",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 286.",
+      "source_row": 286
+    },
+    {
+      "activity_id": "DUB84-R287",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-03",
+      "finish_date": "2026-11-04",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R283",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 287.",
+      "source_row": 287
+    },
+    {
+      "activity_id": "DUB84-R288",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-03",
+      "finish_date": "2026-11-05",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R283",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 288.",
+      "source_row": 288
+    },
+    {
+      "activity_id": "DUB84-R289",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R283",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 289.",
+      "source_row": 289
+    },
+    {
+      "activity_id": "DUB84-R290",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R283",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 290.",
+      "source_row": 290
+    },
+    {
+      "activity_id": "DUB84-R291",
+      "name": "Upload Fit",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-06",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R283",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 291.",
+      "source_row": 291
+    },
+    {
+      "activity_id": "DUB84-R292",
+      "name": "Panel 47- 24 No Cables",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-DH22",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 292.",
+      "source_row": 292
+    },
+    {
+      "activity_id": "DUB84-R293",
+      "name": "Bring cables From ER Room to Panel location",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R292",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 293.",
+      "source_row": 293
+    },
+    {
+      "activity_id": "DUB84-R294",
+      "name": "Pull in Primary Circuits",
+      "start_date": "2026-10-29",
+      "finish_date": "2026-10-29",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R292",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 294.",
+      "source_row": 294
+    },
+    {
+      "activity_id": "DUB84-R295",
+      "name": "Pull in Catcher circuits",
+      "start_date": "2026-10-30",
+      "finish_date": "2026-11-02",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R292",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 295.",
+      "source_row": 295
+    },
+    {
+      "activity_id": "DUB84-R296",
+      "name": "Tie down of Primary  circuits",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-09",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R292",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 296.",
+      "source_row": 296
+    },
+    {
+      "activity_id": "DUB84-R297",
+      "name": "Tie down of catcher circuits",
+      "start_date": "2026-11-06",
+      "finish_date": "2026-11-10",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R292",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 297.",
+      "source_row": 297
+    },
+    {
+      "activity_id": "DUB84-R298",
+      "name": "Testing of Cables",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R292",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 298.",
+      "source_row": 298
+    },
+    {
+      "activity_id": "DUB84-R299",
+      "name": "QC of Aisle",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R292",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 299.",
+      "source_row": 299
+    },
+    {
+      "activity_id": "DUB84-R300",
+      "name": "Upload Fit",
+      "start_date": "2026-11-11",
+      "finish_date": "2026-11-11",
+      "planned_men": 0.0,
+      "parent_id": "DUB84-R292",
+      "milestone": false,
+      "notes": "Source: Sheet1 row 300.",
+      "source_row": 300
+    }
+  ],
+  "source_anomalies": [
+    {
+      "rows": [
+        247,
+        265,
+        283
+      ],
+      "issue": "Cached parent finish date is before start date in supplied workbook; parent finish imported from latest child activity finish and original cached value preserved in notes."
+    },
+    {
+      "rows": [
+        3,
+        4,
+        5,
+        6,
+        11,
+        12,
+        13,
+        14
+      ],
+      "issue": "Some one-day activities have cached finish dates that span multiple calendar days; source values retained exactly."
+    },
+    {
+      "rows": [
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55
+      ],
+      "issue": "Panel overview rows contain formulas/target dates and are represented as metadata on corresponding detailed panel activities rather than duplicated activities."
+    }
+  ]
+}

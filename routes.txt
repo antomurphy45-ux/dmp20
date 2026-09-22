@@ -1,0 +1,291 @@
+                try:
+                    c.execute("BEGIN"); imported=0
+                    for task_id,name,start,finish,pct,men,notes,st in items:
+                        tid=secrets.token_hex(8); aid=task_id
+                        ast=start if st in ("Ongoing","Held Up","Finished") else None; aft=finish if st=="Finished" else None
+                        c.execute("""INSERT INTO plan_tasks(id,plan_id,project_id,name,start_date,finish_date,percent_complete,planned_men,notes,activity_id,actual_start,actual_finish,task_status)
+                                     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)""",(tid,plan_id,plan["project_id"],name,start,finish,pct,men,notes,aid,ast,aft,st)); imported+=1
+                    audit_row(c,u,"TASK_BULK_IMPORT",plan_id); c.commit()
+                except Exception:
+                    c.rollback(); raise
+                self.j(201,{"filename":filename,"rows_read":len(rows)-1,"rows_imported":imported,"rows_rejected":0}); return
+            if path.startswith("/api/plans/"):
+                parts=path.strip("/").split("/"); plan_id=parts[2] if len(parts)>2 else ""
+                plan=c.execute("SELECT * FROM plans WHERE id=? AND company_id=?",(plan_id,u["company_id"])).fetchone()
+                if not plan or not can_access_project(c,u,plan["project_id"]): self.j(404,{"error":"Plan not found"}); return
+                if len(parts)==3 and self.command=="GET":
+                    if not has_permission(c,u,"Projects","View"): self.j(403,{"error":"Project view permission required"}); return
+                    tasks=c.execute("SELECT * FROM plan_tasks WHERE plan_id=? AND project_id=? ORDER BY start_date,id",(plan_id,plan["project_id"])).fetchall()
+                    self.j(200,{"plan":dict(plan),"tasks":[dict(x) for x in tasks]}); return
+                if len(parts)==4 and parts[3] in ("gantt","resources","lookahead","comparison","integration") and self.command=="GET":
+                    if not has_permission(c,u,"Projects","View"): self.j(403,{"error":"Project view permission required"}); return
+                    rows=[dict(x) for x in c.execute("SELECT * FROM plan_tasks WHERE plan_id=? AND project_id=? ORDER BY start_date,id",(plan_id,plan["project_id"])).fetchall()]
+                    by={x["id"]:x for x in rows}
+                    def d(v): return date.fromisoformat(v)
+                    def workdays(a,b): return working_days(c,u["company_id"],plan["project_id"],plan_id,a,b)
+                    def add_workdays(dt,n): return add_plan_workdays(c,u["company_id"],plan["project_id"],plan_id,dt,n)
+                    # Validate dates, references, dependency types and lag.
+                    valid_types={"FS","SS","FF","SF"}
+                    for x in rows:
+                        try:
+                            sd,fd=d(x["start_date"]),d(x["finish_date"])
+                            if fd<sd: raise ValueError
+                        except Exception: self.j(409,{"error":"Invalid task date range"}); return
+                        if x["predecessor_id"] and x["predecessor_id"] not in by: self.j(409,{"error":"Invalid predecessor reference"}); return
+                        if x.get("dependency_type") not in valid_types: self.j(409,{"error":"Invalid dependency type"}); return
+                        if int(x.get("lag_days") or 0)<0: self.j(409,{"error":"Lag days cannot be negative"}); return
+                    # Detect dependency cycles.
+                    visiting=set(); visited=set()
+                    def dfs(tid):
+                        if tid in visiting: return False
+                        if tid in visited: return True
+                        visiting.add(tid); pred=by[tid]["predecessor_id"]
+                        if pred and not dfs(pred): return False
+                        visiting.remove(tid); visited.add(tid); return True
+                    if any(not dfs(x["id"]) for x in rows): self.j(409,{"error":"Dependency cycle detected"}); return
+                    ordered=sorted(rows,key=lambda x:(x["start_date"],x["id"]))
+                    es={}; ef={}
+                    # Calendar scheduling with Monday-Friday working-day duration. Dependency types and lag are supported.
+                    for x in ordered:
+                        orig_s,orig_f=d(x["start_date"]),d(x["finish_date"]); duration=max(1,workdays(orig_s,orig_f))
+                        start=orig_s; finish=add_workdays(start,duration-1)
+                        pred=x["predecessor_id"]
+                        if pred:
+                            ps,pf=es[pred],ef[pred]; lag=int(x.get("lag_days") or 0); typ=x["dependency_type"]
+                            if typ=="FS": start=max(start,add_workdays(pf,lag+1)); finish=add_workdays(start,duration-1)
+                            elif typ=="SS": start=max(start,add_workdays(ps,lag)); finish=add_workdays(start,duration-1)
+                            elif typ=="FF": finish=max(finish,add_workdays(pf,lag)); start=add_workdays(finish,-(duration-1))
+                            elif typ=="SF": finish=max(finish,add_workdays(ps,lag)); start=add_workdays(finish,-(duration-1))
+                        es[x["id"]]=start; ef[x["id"]]=finish
+                    project_finish=max(ef.values()) if ef else None
+                    lf={}; ls={}
+                    for x in reversed(ordered):
+                        children=[y for y in rows if y["predecessor_id"]==x["id"]]
+                        duration=max(1,workdays(d(x["start_date"]),d(x["finish_date"])))
+                        if not children: latest_finish=project_finish
+                        else:
+                            candidates=[]
+                            for y in children:
+                                typ=y["dependency_type"]; lag=int(y.get("lag_days") or 0)
+                                if typ=="FS": candidates.append(add_workdays(ls[y["id"]],-(lag+1)))
+                                elif typ=="SS": candidates.append(add_workdays(ls[y["id"]],-lag)+timedelta(days=duration-1))
+                                elif typ=="FF": candidates.append(add_workdays(lf[y["id"]],-lag))
+                                else: candidates.append(add_workdays(lf[y["id"]],-lag)+timedelta(days=duration-1))
+                            latest_finish=min(candidates)
+                        lf[x["id"]]=latest_finish; ls[x["id"]]=add_workdays(latest_finish,-(duration-1))
+                    for x in rows:
+                        x["scheduled_start"]=es[x["id"]].isoformat(); x["scheduled_finish"]=ef[x["id"]].isoformat(); x["critical"]=(ls[x["id"]]==es[x["id"]]); x["float_days"]=(ls[x["id"]]-es[x["id"]]).days
+                        x["variance_days"]=(d(x["actual_finish"])-d(x["finish_date"])).days if x.get("actual_finish") else None
+                    start=min((d(x["scheduled_start"]) for x in rows),default=None); finish=max((d(x["scheduled_finish"]) for x in rows),default=None)
+                    if parts[3]=="resources":
+                        daily={}; cur=start
+                        while cur and finish and cur<=finish:
+                            if cur.weekday()<5: daily[cur.isoformat()]=0
+                            cur+=timedelta(days=1)
+                        for x in rows:
+                            cur=es[x["id"]]
+                            while cur<=ef[x["id"]]:
+                                if cur.weekday()<5: daily[cur.isoformat()]=daily.get(cur.isoformat(),0)+float(x["planned_men"] or 0)
+                                cur+=timedelta(days=1)
+                        self.j(200,{"plan":dict(plan),"daily":daily,"peak_men":max(daily.values(),default=0)}); return
+                    if parts[3]=="lookahead":
+                        q=urlparse(self.path).query; import urllib.parse as _up; params=_up.parse_qs(q); days=max(1,min(28,int(params.get("days",[14])[0])))
+                        today=date.today(); horizon=today+timedelta(days=days-1)
+                        upcoming=[x for x in rows if d(x["scheduled_finish"])>=today and d(x["scheduled_start"])<=horizon]
+                        self.j(200,{"plan":dict(plan),"from":today.isoformat(),"to":horizon.isoformat(),"tasks":upcoming}); return
+                    if parts[3] in ("comparison","integration"):
+                        # Programme vs baseline and live construction-control integration.
+                        import urllib.parse as _up
+                        def parse_data(r):
+                            try: return json.loads(r["data_json"] or "{}")
+                            except Exception: return {}
+                        baseline_tasks=[]
+                        for x in rows:
+                            bs=x.get("baseline_start"); bf=x.get("baseline_finish")
+                            if bs and bf:
+                                baseline_tasks.append({
+                                    "id":x["id"], "name":x["name"], "baseline_start":bs, "baseline_finish":bf,
+                                    "current_start":x["start_date"], "current_finish":x["finish_date"],
+                                    "scheduled_start":x["scheduled_start"], "scheduled_finish":x["scheduled_finish"],
+                                    "start_variance_days":(d(x["start_date"])-d(bs)).days,
+                                    "finish_variance_days":(d(x["finish_date"])-d(bf)).days,
+                                    "scheduled_finish_variance_days":(d(x["scheduled_finish"])-d(bf)).days,
+                                    "percent_complete":x["percent_complete"], "actual_start":x.get("actual_start"), "actual_finish":x.get("actual_finish")
+                                })
+                        # Pull Daily Control and Manpower records only from this company/project.
+                        dc=c.execute("SELECT * FROM module_records WHERE company_id=? AND project_id=? AND module='Daily Control'",(u["company_id"],plan["project_id"])).fetchall()
+                        mp=c.execute("SELECT * FROM module_records WHERE company_id=? AND project_id=? AND module='Manpower'",(u["company_id"],plan["project_id"])).fetchall()
+                        daily=[]; total_planned=total_actual=0.0; days_logged=0; completed_entries=0
+                        for r in dc:
+                            z=parse_data(r); day=z.get("date") or r["created_at"][:10]
+                            daily.append({"date":day,"status":z.get("status",""),"planned_activities":z.get("planned_activities",""),"completed_activities":z.get("completed_activities",""),"delays":z.get("delays","")})
+                            days_logged+=1
+                            if str(z.get("completed_activities","")).strip(): completed_entries+=1
+                        manpower_by_day={}; manpower_rows=[]
+                        project_baseline=project_manloader(c,u["company_id"],plan["project_id"])
+                        for r in mp:
+                            z=parse_data(r); day=z.get("date") or r["created_at"][:10]
+                            planned=0.0
+                            try: actual=float(z.get("actual_men",0) or 0)
+                            except: actual=0.0
+                            try: hours=float(z.get("hours",0) or 0)
+                            except: hours=0.0
+                            v=manpower_by_day.setdefault(day,{"planned_men":0.0,"actual_men":0.0,"man_hours":0.0})
+                            v["actual_men"]+=actual; v["man_hours"]+=actual*hours
+                            total_actual+=actual
+                            manpower_rows.append({"date":day,"role":z.get("role",""),"planned_men":None,"actual_men":actual,"hours":hours,"man_hours":actual*hours})
+                        total_planned=project_baseline
+                        # Planned daily manpower comes from programme tasks, not daily attendance entries.
+                        for t in rows:
+                            try:
+                                a=date.fromisoformat(t["start_date"]); b=date.fromisoformat(t["finish_date"])
+                                day=a
+                                while day<=b:
+                                    if day.weekday()<5:
+                                        v=manpower_by_day.setdefault(day.isoformat(),{"planned_men":0.0,"actual_men":0.0,"man_hours":0.0})
+                                        v["planned_men"]+=float(t["planned_men"] or 0)
+                                    day+=timedelta(days=1)
+                            except Exception: pass
+                        # Weighted programme progress: working-day duration as weight.
+                        weights=[]; weighted_done=0.0; weight_total=0.0
+                        for x in rows:
+                            w=max(1,workdays(d(x["start_date"]),d(x["finish_date"])))
+                            weight_total+=w; weighted_done+=w*float(x["percent_complete"] or 0)
+                            weights.append({"id":x["id"],"name":x["name"],"percent_complete":x["percent_complete"],"weight_days":w})
+                        programme_progress=round(weighted_done/weight_total,1) if weight_total else 0.0
+                        if parts[3]=="comparison":
+                            self.j(200,{"plan":dict(plan),"baseline_set":bool(baseline_tasks),"tasks":baseline_tasks,"programme_progress":programme_progress,"baseline_finish":max((x["baseline_finish"] for x in baseline_tasks),default=None),"current_finish":max((x["scheduled_finish"] for x in rows),default=None)}); return
+                        self.j(200,{"plan":dict(plan),"programme_progress":programme_progress,"daily_control":{"days_logged":days_logged,"completed_activity_entries":completed_entries,"records":daily},"manpower":{"total_planned_men_entries":total_planned,"total_actual_men_entries":total_actual,"by_day":manpower_by_day,"rows":manpower_rows},"tasks":weights}); return
+                    self.j(200,{"plan":dict(plan),"start_date":start.isoformat() if start else None,"finish_date":finish.isoformat() if finish else None,"tasks":rows}); return
+                if len(parts)==4 and parts[3]=="updates" and self.command=="GET":
+                    if not has_permission(c,u,"Projects","View"): self.j(403,{"error":"Project view permission required"}); return
+                    ups=c.execute("SELECT pu.*,u.name user_name FROM plan_updates pu LEFT JOIN users u ON u.id=pu.created_by WHERE pu.plan_id=? AND pu.company_id=? AND pu.project_id=? ORDER BY pu.update_date DESC,pu.created_at DESC",(plan_id,u["company_id"],plan["project_id"])).fetchall()
+                    out=[]
+                    for up in ups:
+                        ts=c.execute("SELECT put.*,pt.name task_name FROM plan_update_tasks put JOIN plan_tasks pt ON pt.id=put.plan_task_id WHERE put.update_id=? ORDER BY pt.start_date,pt.id",(up["id"],)).fetchall()
+                        out.append({"id":up["id"],"update_date":up["update_date"],"note":up["note"],"created_by":up["created_by"],"user_name":up["user_name"],"created_at":up["created_at"],"tasks":[dict(x) for x in ts]})
+                    self.j(200,{"plan":dict(plan),"updates":out}); return
+                if len(parts)==4 and parts[3]=="performance" and self.command=="GET":
+                    if not has_permission(c,u,"Projects","View"): self.j(403,{"error":"Project view permission required"}); return
+                    rows=[dict(x) for x in c.execute("SELECT * FROM plan_tasks WHERE plan_id=? AND project_id=? ORDER BY start_date,id",(plan_id,plan["project_id"])).fetchall()]
+                    def parse_date(v):
+                        try: return date.fromisoformat(v)
+                        except Exception: return None
+                    weights=[]; total=0.0
+                    for x in rows:
+                        a=parse_date(x["start_date"]); b=parse_date(x["finish_date"])
+                        w=max(1,working_days(c,u["company_id"],plan["project_id"],plan_id,a,b)) if a and b else 1
+                        total+=w; weights.append((x,w))
+                    current=round(sum(w*float(x["percent_complete"] or 0) for x,w in weights)/total,1) if total else 0.0
+                    ups=c.execute("SELECT * FROM plan_updates WHERE plan_id=? AND company_id=? AND project_id=? ORDER BY update_date,created_at",(plan_id,u["company_id"],plan["project_id"])).fetchall()
+                    trend=[]
+                    for up in ups:
+                        vals=c.execute("SELECT plan_task_id,percent_complete FROM plan_update_tasks WHERE update_id=?",(up["id"],)).fetchall(); by={x["plan_task_id"]:x["percent_complete"] for x in vals}
+                        prog=round(sum(w*float(by.get(x["id"],x["percent_complete"]) or 0) for x,w in weights)/total,1) if total else 0.0
+                        trend.append({"update_id":up["id"],"date":up["update_date"],"progress":prog,"note":up["note"]})
+                    mp=c.execute("SELECT * FROM module_records WHERE company_id=? AND project_id=? AND module='Manpower'",(u["company_id"],plan["project_id"])).fetchall()
+                    def record_data(r):
+                        try: return json.loads(r["data_json"] or "{}")
+                        except Exception: return {}
+                    manpower={}
+                    project_baseline=project_manloader(c,u["company_id"],plan["project_id"])
+                    for r in mp:
+                        z=record_data(r); day=z.get("date") or r["created_at"][:10]
+                        pm=0.0
+                        try: am=float(z.get("actual_men",0) or 0)
+                        except: am=0.0
+                        v=manpower.setdefault(day,{"planned_men":0.0,"actual_men":0.0,"man_hours":0.0})
+                        v["planned_men"]+=pm; v["actual_men"]+=am
+                        try: v["man_hours"]+=am*float(z.get("hours",0) or 0)
+                        except: pass
+                    resource=[]
+                    for day,v in sorted(manpower.items()):
+                        v=dict(v); v["variance_men"]=round(v["actual_men"]-v["planned_men"],1); resource.append({"date":day,**v})
+                    total_pm=sum(x["planned_men"] for x in resource); total_am=sum(x["actual_men"] for x in resource)
+                    self.j(200,{"plan":dict(plan),"current_progress":current,"update_count":len(trend),"trend":trend,"manpower":resource,"manpower_totals":{"planned_men":round(project_baseline,1),"actual_men":round(total_am,1),"variance_men":round(total_am-project_baseline,1)}}); return
+                if len(parts)==4 and parts[3]=="update" and self.command=="POST":
+                    if not has_permission(c,u,"Projects","Edit"): self.j(403,{"error":"Project edit permission required"}); return
+                    b=self.body(); update_date=str(b.get("update_date","")).strip() or date.today().isoformat(); note=str(b.get("note","")).strip(); items=b.get("tasks",[])
+                    try: date.fromisoformat(update_date)
+                    except Exception: self.j(400,{"error":"Invalid update date"}); return
+                    if not isinstance(items,list): self.j(400,{"error":"Tasks must be a list"}); return
+                    seen=set(); validated=[]
+                    for item in items:
+                        if not isinstance(item,dict) or not item.get("id") or item.get("id") in seen: self.j(400,{"error":"Invalid or duplicate task in update"}); return
+                        seen.add(item.get("id")); task=c.execute("SELECT * FROM plan_tasks WHERE id=? AND plan_id=? AND project_id=?",(item.get("id"),plan_id,plan["project_id"])).fetchone()
+                        if not task: self.j(400,{"error":"Invalid task in update"}); return
+                        try: pct=int(item.get("percent_complete"))
+                        except Exception: self.j(400,{"error":"Invalid task progress"}); return
+                        if pct<0 or pct>100: self.j(400,{"error":"Invalid task progress"}); return
+                        a=item.get("actual_start",task["actual_start"]) or None; f=item.get("actual_finish",task["actual_finish"]) or None
+                        if a:
+                            try: date.fromisoformat(a)
+                            except Exception: self.j(400,{"error":"Invalid actual start"}); return
+                        if f:
+                            try: date.fromisoformat(f)
+                            except Exception: self.j(400,{"error":"Invalid actual finish"}); return
+                        if a and f and f<a: self.j(400,{"error":"Actual finish cannot be before actual start"}); return
+                        validated.append((task,pct,a,f))
+                    if not validated: self.j(400,{"error":"At least one task update is required"}); return
+                    uid=secrets.token_hex(8)
+                    try:
+                        c.execute("BEGIN")
+                        c.execute("INSERT INTO plan_updates(id,plan_id,company_id,project_id,update_date,note,created_by) VALUES(?,?,?,?,?,?,?)",(uid,plan_id,u["company_id"],plan["project_id"],update_date,note,u["id"]))
+                        for task,pct,a,f in validated:
+                            c.execute("INSERT INTO plan_update_tasks(id,update_id,plan_task_id,percent_complete,actual_start,actual_finish) VALUES(?,?,?,?,?,?)",(secrets.token_hex(8),uid,task["id"],pct,a,f))
+                            c.execute("UPDATE plan_tasks SET percent_complete=?,task_status=?,actual_start=?,actual_finish=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND plan_id=?",(pct,task_status(pct),a,f,task["id"],plan_id))
+                        c.execute("UPDATE plans SET updated_at=CURRENT_TIMESTAMP WHERE id=?",(plan_id,))
+                        audit_row(c,u,"PLAN_PROGRAMME_UPDATE",plan_id); audit_row(c,u,"PLAN_UPDATE",uid); c.commit()
+                    except Exception:
+                        c.rollback(); raise
+                    self.j(200,{"id":uid,"updated":len(validated),"updated_tasks":len(validated)}); return
+                if len(parts)==4 and parts[3]=="baseline" and self.command=="POST":
+                    if not has_permission(c,u,"Projects","Edit"): self.j(403,{"error":"Project edit permission required"}); return
+                    c.execute("UPDATE plan_tasks SET baseline_start=start_date,baseline_finish=finish_date WHERE plan_id=?",(plan_id,))
+                    c.execute("UPDATE plans SET baseline=1,updated_at=CURRENT_TIMESTAMP WHERE id=? AND company_id=?",(plan_id,u["company_id"]))
+                    audit_row(c,u,"PLAN_BASELINE_SET",plan_id); c.commit(); self.j(200,{"ok":True}); return
+                if len(parts)==3 and self.command=="PUT":
+                    if not has_permission(c,u,"Projects","Edit"): self.j(403,{"error":"Project edit permission required"}); return
+                    b=self.body(); name=str(b.get("name",plan["name"])).strip(); status=str(b.get("status",plan["status"])).strip(); baseline=int(bool(b.get("baseline",plan["baseline"])))
+                    if not name or status not in ("Draft","Active","Complete","On Hold"): self.j(400,{"error":"Invalid plan values"}); return
+                    c.execute("UPDATE plans SET name=?,status=?,baseline=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND company_id=?",(name,status,baseline,plan_id,u["company_id"])); audit_row(c,u,"PLAN_EDIT",plan_id); c.commit(); self.j(200,{"ok":True}); return
+                if len(parts)==3 and self.command=="DELETE":
+                    if not has_permission(c,u,"Projects","Delete"): self.j(403,{"error":"Project delete permission required"}); return
+                    c.execute("DELETE FROM plans WHERE id=? AND company_id=?",(plan_id,u["company_id"])); audit_row(c,u,"PLAN_DELETE",plan_id); c.commit(); self.j(200,{"ok":True}); return
+                if len(parts)==4 and parts[3]=="tasks" and self.command=="POST":
+                    if not has_permission(c,u,"Projects","Edit"): self.j(403,{"error":"Project edit permission required"}); return
+                    b=self.body(); name=str(b.get("name","")).strip(); start=str(b.get("start_date","")).strip(); finish=str(b.get("finish_date","")).strip(); pct=int(b.get("percent_complete",0)); men=float(b.get("planned_men",0)); parent=b.get("parent_id") or None; pred=b.get("predecessor_id") or None; milestone=int(bool(b.get("milestone",False))); notes=str(b.get("notes","")).strip(); dep=str(b.get("dependency_type","FS")).upper(); lag=int(b.get("lag_days",0)); actual_start=b.get("actual_start") or None; actual_finish=b.get("actual_finish") or None
+                    if not name or not start or not finish: self.j(400,{"error":"Task name, start date and finish date are required"}); return
+                    if finish < start: self.j(400,{"error":"Finish date cannot be before start date"}); return
+                    if pct<0 or pct>100 or men<0 or dep not in ("FS","SS","FF","SF") or lag<0: self.j(400,{"error":"Invalid task values"}); return
+                    status=LEGACY_TASK_STATUS_MAP.get(str(b.get("status","")).strip(),str(b.get("status","")).strip()) or task_status(pct)
+                    if status not in TASK_STATUS_VALUES: self.j(400,{"error":"Invalid task status"}); return
+                    pct=task_progress(status,pct)
+                    for ref in (parent,pred):
+                        if ref and not c.execute("SELECT 1 FROM plan_tasks WHERE id=? AND plan_id=?",(ref,plan_id)).fetchone(): self.j(400,{"error":"Invalid task reference"}); return
+                    tid=secrets.token_hex(8); c.execute("INSERT INTO plan_tasks(id,plan_id,project_id,parent_id,name,start_date,finish_date,percent_complete,planned_men,predecessor_id,milestone,notes,dependency_type,lag_days,actual_start,actual_finish,task_status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(tid,plan_id,plan["project_id"],parent,name,start,finish,pct,men,pred,milestone,notes,dep,lag,actual_start,actual_finish,status)); audit_row(c,u,"PLAN_TASK_CREATE",tid); c.commit(); self.j(201,{"id":tid}); return
+                if len(parts)==5 and parts[3]=="tasks":
+                    tid=parts[4]; task=c.execute("SELECT * FROM plan_tasks WHERE id=? AND plan_id=? AND project_id=?",(tid,plan_id,plan["project_id"])).fetchone()
+                    if not task: self.j(404,{"error":"Task not found"}); return
+                    if self.command=="PUT":
+                        if not has_permission(c,u,"Projects","Edit"): self.j(403,{"error":"Project edit permission required"}); return
+                        b=self.body(); name=str(b.get("name",task["name"])).strip(); start=str(b.get("start_date",task["start_date"])); finish=str(b.get("finish_date",task["finish_date"])); pct=int(b.get("percent_complete",task["percent_complete"])); men=float(b.get("planned_men",task["planned_men"])); dep=str(b.get("dependency_type",task["dependency_type"])).upper(); lag=int(b.get("lag_days",task["lag_days"])); pred=b.get("predecessor_id",task["predecessor_id"]) or None; actual_start=b.get("actual_start",task["actual_start"]) or None; actual_finish=b.get("actual_finish",task["actual_finish"]) or None
+                        if not name or finish<start or pct<0 or pct>100 or men<0 or dep not in ("FS","SS","FF","SF") or lag<0: self.j(400,{"error":"Invalid task values"}); return
+                        status=LEGACY_TASK_STATUS_MAP.get(str(b.get("status",task["task_status"] or "")).strip(),str(b.get("status",task["task_status"] or "")).strip()) or task_status(pct,task["task_status"])
+                        if status not in TASK_STATUS_VALUES: self.j(400,{"error":"Invalid task status"}); return
+                        pct=task_progress(status,pct)
+                        if pred and not c.execute("SELECT 1 FROM plan_tasks WHERE id=? AND plan_id=?",(pred,plan_id)).fetchone(): self.j(400,{"error":"Invalid predecessor reference"}); return
+                        c.execute("UPDATE plan_tasks SET name=?,start_date=?,finish_date=?,percent_complete=?,planned_men=?,predecessor_id=?,dependency_type=?,lag_days=?,actual_start=?,actual_finish=?,task_status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND plan_id=?",(name,start,finish,pct,men,pred,dep,lag,actual_start,actual_finish,status,tid,plan_id)); audit_row(c,u,"PLAN_TASK_EDIT",tid); c.commit(); self.j(200,{"ok":True}); return
+                    if self.command=="DELETE":
+                        if not has_permission(c,u,"Projects","Edit"): self.j(403,{"error":"Project edit permission required"}); return
+                        c.execute("DELETE FROM plan_tasks WHERE id=? AND plan_id=?",(tid,plan_id)); audit_row(c,u,"PLAN_TASK_DELETE",tid); c.commit(); self.j(200,{"ok":True}); return
+            if path.startswith("/api/plans/") and len(path.strip("/").split("/"))==4:
+                pass
+            # Programme calendar exceptions and controlled update workflow.
+            if path=="/api/plan-calendar" and self.command in ("GET","POST"):
+                from urllib.parse import parse_qs
+                qs=parse_qs(urlparse(self.path).query); pid=(qs.get("project_id") or [None])[0]; plan_id=(qs.get("plan_id") or [None])[0]
+                if self.command=="POST":
+                    try: pb=self.body()
+                    except Exception: self.j(400,{"error":"Invalid JSON"}); return
+                    pid=str(pb.get("project_id",pid) or "").strip(); plan_id=str(pb.get("plan_id",plan_id) or "").strip() or None
